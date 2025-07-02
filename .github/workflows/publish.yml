@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deploy regardless of version'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   check-version:
@@ -49,7 +56,7 @@ jobs:
 
   publish:
     needs: check-version
-    if: needs.check-version.outputs.version-changed == 'true'
+    if: needs.check-version.outputs.version-changed == 'true' || github.event.inputs.force_deploy == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
