@@ -1,11 +1,24 @@
-# Swit MCP Server
+```
+  ░██████╗░██╗░░░░░░░██╗██╗████████╗  ███╗░░░███╗░█████╗░██████╗░
+  ██╔════╝░██║░░██╗░░██║██║╚══██╔══╝  ████╗░████║██╔══██╗██╔══██╗
+  ╚█████╗░░╚██╗████╗██╔╝██║░░░██║░░░  ██╔████╔██║██║░░╚═╝██████╔╝
+  ░╚═══██╗░░████╔═████║░██║░░░██║░░░  ██║╚██╔╝██║██║░░██╗██╔═══╝░
+  ██████╔╝░░╚██╔╝░╚██╔╝░██║░░░██║░░░  ██║░╚═╝░██║╚█████╔╝██║░░░░░
+  ╚═════╝░░░░╚═╝░░░╚═╝░░╚═╝░░░╚═╝░░░  ╚═╝░░░░░╚═╝░╚════╝░╚═╝░░░░░
+```
 
-Swit 협업툴과 연동하는 Model Context Protocol (MCP) 서버입니다.
+<div align="center">
+  <strong>🟦 Swit 협업툴과 연동하는 Model Context Protocol (MCP) 서버 🟧</strong>
+  <br>
+  <em>🟩 Swit을 연결하여 업무 자동화를 실현하세요 🟩</em>
+</div>
 
-## 설치
+## 🚀 빠른 시작
+
+NPM을 통해 즉시 사용 가능합니다:
 
 ```bash
-pnpm install -g swit-mcp
+npx -y swit-mcp
 ```
 
 ## 설정
@@ -33,15 +46,9 @@ export SWIT_API_BASE_URL="https://openapi.swit.io/v1"  # 선택사항
 
 ## 사용법
 
-### npx로 실행
+### MCP 클라이언트 설정
 
-```bash
-npx swit-mcp
-```
-
-### MCP 클라이언트에서 사용
-
-Claude Desktop이나 다른 MCP 클라이언트의 설정에 추가:
+Claude Desktop이나 다른 MCP 클라이언트의 설정 파일에 추가:
 
 #### OAuth 방식 (권장)
 
@@ -50,7 +57,7 @@ Claude Desktop이나 다른 MCP 클라이언트의 설정에 추가:
   "mcpServers": {
     "swit": {
       "command": "npx",
-      "args": ["swit-mcp"],
+      "args": ["-y", "swit-mcp"],
       "env": {
         "SWIT_CLIENT_ID": "your-client-id",
         "SWIT_CLIENT_SECRET": "your-client-secret"
@@ -60,14 +67,14 @@ Claude Desktop이나 다른 MCP 클라이언트의 설정에 추가:
 }
 ```
 
-#### Bearer Token 방식 (fallback)
+#### Bearer Token 방식 (대체)
 
 ```json
 {
   "mcpServers": {
     "swit": {
       "command": "npx",
-      "args": ["swit-mcp"],
+      "args": ["-y", "swit-mcp"],
       "env": {
         "SWIT_API_TOKEN": "your-swit-api-token"
       }
@@ -84,19 +91,19 @@ Claude Desktop이나 다른 MCP 클라이언트의 설정에 추가:
 4. 인증 완료 후 자동으로 토큰이 저장됩니다
 5. `swit-oauth-status` 도구로 인증 상태를 확인할 수 있습니다
 
-## 사용 가능한 도구
+## 🛠️ 사용 가능한 도구
 
-### OAuth 관리
+### 🔐 OAuth 관리
+- **`swit-oauth-status`** - OAuth 인증 상태 확인 및 토큰 정보 조회
+- **`swit-oauth-start`** - OAuth 인증 시작 (브라우저 인증 URL 반환)
 
-- `swit-oauth-status`: OAuth 인증 상태 확인
-- `swit-oauth-start`: OAuth 인증 시작 (브라우저 인증 URL 반환)
+### 💼 Swit API 연동
+- **`swit-workspace-list`** - 접근 가능한 워크스페이스 목록 조회
+- **`swit-channel-list`** - 지정된 워크스페이스의 채널 목록 조회 (필터링 지원)
+- **`swit-message-create`** - 채널에 새 메시지 전송 (텍스트/HTML 지원)
+- **`swit-message-comment-create`** - 기존 메시지에 댓글 작성
 
-### Swit API
-
-- `swit-workspace-list`: 워크스페이스 목록 조회
-- `swit-channel-list`: 채널 목록 조회
-- `swit-message-create`: 메시지 전송
-- `swit-message-comment-create`: 메시지에 코멘트 작성
+> 🎯 **활용 예시**: Claude에게 "Swit의 개발팀 채널에 프로젝트 진행 상황을 알려줘"라고 요청하면 자동으로 메시지를 전송할 수 있습니다.
 
 ## 개발
 
