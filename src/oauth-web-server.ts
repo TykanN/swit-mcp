@@ -1,14 +1,13 @@
 import express from 'express';
 import { Server } from 'http';
-import { TokenInfo } from './oauth-manager.js';
-import { AuthHelper } from './auth-helper.js';
+import { OAuthManager, TokenInfo } from './oauth-manager.js';
 import { OAuthSettings } from './oauth-settings.js';
 import { TokenCache } from './token-cache.js';
 
 export class OAuthWebServer {
   private app: express.Application;
   private server: Server | null = null;
-  private authHelper: AuthHelper;
+  private oauthManager: OAuthManager;
   private settings: OAuthSettings;
   private authPromise: Promise<TokenInfo> | null = null;
   private authResolve: ((token: TokenInfo) => void) | null = null;
@@ -17,7 +16,7 @@ export class OAuthWebServer {
   constructor(settings: OAuthSettings, tokenCache?: TokenCache) {
     this.settings = settings;
     const cache = tokenCache || new TokenCache();
-    this.authHelper = new AuthHelper(settings, cache);
+    this.oauthManager = new OAuthManager(settings.config, cache);
     this.app = express();
     this.setupRoutes();
   }
@@ -59,7 +58,7 @@ export class OAuthWebServer {
         }
 
         console.error('OAuth authorization code received, exchanging for token');
-        const tokenInfo = await this.authHelper.authenticateWithCode(code);
+        const tokenInfo = await this.oauthManager.exchangeCodeForToken(code);
 
         console.error('OAuth authentication successful');
         res.send(this.getSuccessPage());
@@ -87,7 +86,7 @@ export class OAuthWebServer {
 
     // 인증 상태 확인 엔드포인트
     this.app.get('/status', (req, res) => {
-      const isAuthenticated = this.authHelper.isAuthenticated();
+      const isAuthenticated = this.oauthManager.isTokenValid();
       res.json({
         authenticated: isAuthenticated,
         message: isAuthenticated ? 'Authenticated' : 'Authentication required',
@@ -151,7 +150,7 @@ export class OAuthWebServer {
    * OAuth 인증 URL 생성
    */
   getAuthorizationUrl(): string {
-    return this.authHelper.getAuthorizationUrl();
+    return this.oauthManager.getAuthorizationUrl();
   }
 
   /**
@@ -174,14 +173,14 @@ export class OAuthWebServer {
    * OAuth 매니저 반환
    */
   getOAuthManager() {
-    return this.authHelper.getOAuthManager();
+    return this.oauthManager;
   }
 
   /**
    * 인증 상태 확인
    */
   isAuthenticated(): boolean {
-    return this.authHelper.isAuthenticated();
+    return this.oauthManager.isTokenValid();
   }
 
   /**

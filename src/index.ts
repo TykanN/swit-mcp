@@ -129,34 +129,55 @@ async function main() {
   }
 }
 
+// 정리 함수
+async function cleanup(reason: string) {
+  console.error(`Process terminating (${reason})...`);
+  if (oauthWebServer) {
+    try {
+      await oauthWebServer.stopServer();
+    } catch (error) {
+      console.error('Error stopping OAuth web server:', error);
+    }
+  }
+}
+
 // 프로세스 종료 시 웹서버 정리
 process.on('SIGINT', async () => {
-  console.error('Process terminating...');
-  if (oauthWebServer) {
-    await oauthWebServer.stopServer();
-  }
+  await cleanup('SIGINT');
   process.exit(0);
 });
 
 process.on('SIGTERM', async () => {
-  console.error('Process terminating...');
-  if (oauthWebServer) {
-    await oauthWebServer.stopServer();
-  }
+  await cleanup('SIGTERM');
   process.exit(0);
 });
 
-// ES 모듈에서는 require.main 대신 import.meta.url 사용
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((error) => {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    const stackTrace = error instanceof Error ? error.stack : '';
+// MCP 환경을 위한 추가 정리 로직
+process.on('disconnect', async () => {
+  await cleanup('disconnect');
+  process.exit(0);
+});
 
-    // MCP 클라이언트가 볼 수 있도록 stderr에 출력
-    console.error('MCP Server startup failed:', errorMessage);
-    console.error('Stack trace:', stackTrace);
+// stdin이 닫힐 때 (MCP 클라이언트 연결 해제)
+process.stdin.on('end', async () => {
+  await cleanup('stdin end');
+  process.exit(0);
+});
 
-    console.error('Main 함수 실행 중 오류:', errorMessage, stackTrace);
-    process.exit(1);
-  });
-}
+process.stdin.on('error', async () => {
+  await cleanup('stdin error');
+  process.exit(1);
+});
+
+// MCP 서버 시작
+main().catch((error) => {
+  const errorMessage = error instanceof Error ? error.message : String(error);
+  const stackTrace = error instanceof Error ? error.stack : '';
+
+  // MCP 클라이언트가 볼 수 있도록 stderr에 출력
+  console.error('MCP Server startup failed:', errorMessage);
+  console.error('Stack trace:', stackTrace);
+
+  console.error('Main 함수 실행 중 오류:', errorMessage, stackTrace);
+  process.exit(1);
+});

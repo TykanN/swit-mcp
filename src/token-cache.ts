@@ -11,42 +11,26 @@ export class TokenCache {
   }
 
   save(tokenInfo: TokenInfo): void {
-    try {
-      const data = JSON.stringify(tokenInfo, null, 2);
-      fs.writeFileSync(this.filePath, data, 'utf8');
-      console.error('Token saved to cache:', this.filePath);
-    } catch (error) {
-      console.error('Failed to save token to cache:', error instanceof Error ? error.message : String(error), this.filePath);
-      throw new Error(`Failed to save token: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const data = JSON.stringify(tokenInfo, null, 2);
+    fs.writeFileSync(this.filePath, data, 'utf8');
   }
 
   load(): TokenInfo | null {
     try {
       if (!this.exists()) {
-        console.error('No cached token file found:', this.filePath);
         return null;
       }
-
       const data = fs.readFileSync(this.filePath, 'utf8');
       const tokenInfo = JSON.parse(data) as TokenInfo;
-      console.error('Token loaded from cache:', this.filePath);
       return tokenInfo;
-    } catch (error) {
-      console.error('Failed to load token from cache:', error instanceof Error ? error.message : String(error), this.filePath);
+    } catch {
       return null;
     }
   }
 
   clear(): void {
-    try {
-      if (this.exists()) {
-        fs.unlinkSync(this.filePath);
-        console.error('Token cache cleared:', this.filePath);
-      }
-    } catch (error) {
-      console.error('Failed to clear token cache:', error instanceof Error ? error.message : String(error), this.filePath);
-      throw new Error(`Failed to clear token cache: ${error instanceof Error ? error.message : String(error)}`);
+    if (this.exists()) {
+      fs.unlinkSync(this.filePath);
     }
   }
 
