@@ -1,6 +1,6 @@
 {
   "name": "swit-mcp",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Swit 협업툴과 연동하는 Model Context Protocol (MCP) 서버",
   "type": "module",
   "main": "dist/index.js",
@@ -30,7 +30,8 @@
     "axios": "^1.6.0",
     "express": "^5.0.3",
     "winston": "^3.17.0",
-    "zod": "^3.22.0"
+    "zod": "^3.22.0",
+    "zod-to-json-schema": "^3.24.6"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
