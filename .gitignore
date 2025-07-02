@@ -28,7 +28,3 @@ Thumbs.db
 # Coverage
 coverage/
 *.lcov
-
-# log
-swit-mcp.log
-swit-mcp-error.log

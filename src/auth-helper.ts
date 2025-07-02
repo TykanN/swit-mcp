@@ -1,7 +1,6 @@
 import { OAuthManager, TokenInfo } from './oauth-manager.js';
 import { OAuthSettings } from './oauth-settings.js';
 import { TokenCache } from './token-cache.js';
-import { logger } from './logger.js';
 
 export class AuthHelper {
   private oauthManager: OAuthManager;
@@ -10,14 +9,11 @@ export class AuthHelper {
     this.oauthManager = new OAuthManager(settings.config, tokenCache);
   }
 
-
   /**
    * OAuth 인증 URL 생성
    */
   getAuthorizationUrl(): string {
-    const authUrl = this.oauthManager.getAuthorizationUrl();
-    logger.debug('OAuth authorization URL generated');
-    return authUrl;
+    return this.oauthManager.getAuthorizationUrl();
   }
 
   /**
@@ -26,11 +22,8 @@ export class AuthHelper {
   async authenticateWithCode(code: string): Promise<TokenInfo> {
     try {
       const tokenInfo = await this.oauthManager.exchangeCodeForToken(code);
-      logger.info('OAuth authentication completed successfully');
       return tokenInfo;
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : String(error);
-      logger.error('OAuth authentication failed', { error: errorMsg });
       throw error;
     }
   }
@@ -54,6 +47,5 @@ export class AuthHelper {
    */
   logout(): void {
     this.oauthManager.logout();
-    logger.info('OAuth logout completed successfully');
   }
 }

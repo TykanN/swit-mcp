@@ -1,5 +1,4 @@
 import { Oauth } from '@swit-api/oauth';
-import { logger } from './logger.js';
 import { TokenCache } from './token-cache.js';
 
 export interface OAuthConfig {
@@ -52,12 +51,10 @@ export class OAuthManager {
         expiresAt: Date.now() + tokenResponse.expires_in * 1000,
       };
       this.saveToken(this.tokenInfo);
-      logger.info('OAuth token exchange successful');
+      console.error('OAuth token exchange successful');
       return this.tokenInfo;
     } catch (error) {
-      logger.error('OAuth token exchange failed', {
-        error: error instanceof Error ? error.message : String(error),
-      });
+      console.error('OAuth token exchange failed:', error instanceof Error ? error.message : String(error));
       throw new Error(
         `OAuth token exchange failed: ${error instanceof Error ? error.message : String(error)}`
       );
@@ -97,11 +94,9 @@ export class OAuthManager {
         expiresAt: Date.now() + tokenResponse.expires_in * 1000,
       };
       this.saveToken(this.tokenInfo);
-      logger.info('OAuth token refresh successful');
+      console.error('OAuth token refresh successful');
     } catch (error) {
-      logger.error('Token refresh failed', {
-        error: error instanceof Error ? error.message : String(error),
-      });
+      console.error('Token refresh failed:', error instanceof Error ? error.message : String(error));
       throw new Error(
         `Token refresh failed: ${error instanceof Error ? error.message : String(error)}`
       );
@@ -136,7 +131,7 @@ export class OAuthManager {
   logout(): void {
     this.tokenInfo = null;
     this.tokenCache.clear();
-    logger.info('OAuth logout completed');
+    console.error('OAuth logout completed');
   }
 
   /**

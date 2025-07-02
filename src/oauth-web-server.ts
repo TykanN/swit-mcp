@@ -1,7 +1,6 @@
 import express from 'express';
 import { Server } from 'http';
 import { TokenInfo } from './oauth-manager.js';
-import { logger } from './logger.js';
 import { AuthHelper } from './auth-helper.js';
 import { OAuthSettings } from './oauth-settings.js';
 import { TokenCache } from './token-cache.js';
@@ -31,7 +30,7 @@ export class OAuthWebServer {
 
         if (error) {
           const errorMsg = `OAuth 인증 실패: ${error_description || error}`;
-          logger.error(errorMsg);
+          console.error(errorMsg);
 
           res.send(this.getErrorPage(errorMsg));
 
@@ -46,7 +45,7 @@ export class OAuthWebServer {
 
         if (!code || typeof code !== 'string') {
           const errorMsg = 'OAuth 콜백에서 인증 코드를 받지 못했습니다.';
-          logger.error(errorMsg);
+          console.error(errorMsg);
 
           res.send(this.getErrorPage(errorMsg));
 
@@ -59,10 +58,10 @@ export class OAuthWebServer {
           return;
         }
 
-        logger.info('OAuth authorization code received, exchanging for token');
+        console.error('OAuth authorization code received, exchanging for token');
         const tokenInfo = await this.authHelper.authenticateWithCode(code);
 
-        logger.info('OAuth authentication successful');
+        console.error('OAuth authentication successful');
         res.send(this.getSuccessPage());
 
         if (this.authResolve) {
@@ -73,7 +72,7 @@ export class OAuthWebServer {
         }
       } catch (error) {
         const errorMsg = `토큰 교환 실패: ${error instanceof Error ? error.message : String(error)}`;
-        logger.error(errorMsg);
+        console.error(errorMsg);
 
         res.send(this.getErrorPage(errorMsg));
 
@@ -111,23 +110,17 @@ export class OAuthWebServer {
     return new Promise((resolve, reject) => {
       try {
         this.server = this.app.listen(this.settings.port, () => {
-          logger.info('OAuth web server started', {
-            port: this.settings.port,
-            url: `http://localhost:${this.settings.port}`,
-          });
+          console.error(`OAuth web server started on port ${this.settings.port} at http://localhost:${this.settings.port}`);
           resolve();
         });
 
         this.server.on('error', (error: any) => {
           if (error.code === 'EADDRINUSE') {
             const errorMsg = `Port ${this.settings.port} is already in use. Please use a different port.`;
-            logger.error('OAuth web server port conflict', {
-              port: this.settings.port,
-              error: errorMsg,
-            });
+            console.error(`OAuth web server port conflict on port ${this.settings.port}:`, errorMsg);
             reject(new Error(errorMsg));
           } else {
-            logger.error('OAuth web server error', { error: error.message || String(error) });
+            console.error('OAuth web server error:', error.message || String(error));
             reject(error);
           }
         });
@@ -144,7 +137,7 @@ export class OAuthWebServer {
     return new Promise((resolve) => {
       if (this.server) {
         this.server.close(() => {
-          logger.info('OAuth web server stopped');
+          console.error('OAuth web server stopped');
           this.server = null;
           resolve();
         });
