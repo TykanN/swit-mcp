@@ -1,0 +1,4598 @@
+GetUserInfoResponse:
+  type: object
+  title: GetUserInfoResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    user:
+      $ref: '#/UserResponse'
+  x-tags:
+    - User
+UserResponse:
+  type: object
+  title: UserResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    cmp_id:
+      type: string
+      description: The ID of the organization the user is in.
+      examples:
+        - '19065611325634561'
+    color:
+      type: string
+      description: The background color of the default profile image of the user.
+      examples:
+        - '#00ff00'
+    department:
+      type: string
+      description: Previously used in the Free/Standard plans to describe the department the user is in.
+      examples:
+        - backend
+      x-deprecated: true
+    id:
+      type: string
+      description: The ID of the user. This is used for the API to identify the user.
+      examples:
+        - 1908210134210XIiU3W
+    language:
+      enum:
+        - en
+        - ko
+      description: The language setting of the user.
+    name:
+      type: string
+      description: The username registered.
+      examples:
+        - sally
+    photo:
+      type: string
+      description: 'The URL path of the profile image, relative to `https://files.swit.io`.'
+      examples:
+        - /profile/20120211324834567/dawilOPyY6GS3XFdtEQ2y0qy.png
+    status:
+      type: integer
+      description: |-
+        Whether the user's membership is active.
+        - `0`: Inactive
+        - `1`: Active
+      examples:
+        - 1
+    status_msg:
+      type: string
+      description: The status message the user has left.
+      examples:
+        - my status
+    tel:
+      type: string
+      description: The phone number of the user.
+      examples:
+        - +1 222-333-4444
+    timezone:
+      type: string
+      description: The timezone setting of the user.
+      examples:
+        - America/Los_Angeles
+    user_email:
+      type: string
+      description: The email address of the user.
+      examples:
+        - jane@example.com
+  x-tags:
+    - User
+UserPresenceSyncStatusResponse:
+  type: object
+  title: UserPresenceSyncStatusResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    app_id:
+      type: string
+      description: The ID of the app that issued the access token passed.
+      examples:
+        - 200330060739965p5HE
+    is_presence_sync_on:
+      type: boolean
+      description: Whether or not the app is allowed to update the presence sync of the authorizing user.
+      examples:
+        - true
+  x-tags:
+    - User
+GetWorkspaceInfoResponse:
+  type: object
+  title: GetWorkspaceInfoResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    workspace:
+      $ref: '#/WorkspaceResponse'
+  x-tags:
+    - Workspace
+WorkspaceResponse:
+  type: object
+  title: WorkspaceResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    admin_ids:
+      type: array
+      description: The user IDs of the workspace administrators.
+      examples:
+        - - 191120042719809wVlw
+          - 190826072741481FcvV
+      items:
+        type: string
+    color:
+      type: string
+      description: The background color of the default profile image of the workspace.
+      examples:
+        - '#00ff00'
+    created:
+      type: string
+      description: The date and time at which the workspace was created.
+      examples:
+        - '2020-02-03T01:31:37Z'
+    domain:
+      type: string
+      description: The domain name of the workspace.
+      examples:
+        - haileystandard000
+    id:
+      type: string
+      description: The ID of the workspace.
+      examples:
+        - 2001210215096173faX
+    master_id:
+      type: string
+      description: The user ID of the workspace master.
+      examples:
+        - 190826072741481FcvV
+    name:
+      type: string
+      description: The name of the workspace.
+      examples:
+        - haileystandard000
+    photo:
+      type: string
+      description: 'The URL path of the profile image, relative to `https://files.swit.io`.'
+      examples:
+        - /ws_image/workspace/1kYTjVFD23DFutGA/ws_image/ABcZ3tmJiypQ6123456qWI5kdNQFeVdo_th_500.png
+  x-tags:
+    - Workspace
+GetWorkspaceListResponse:
+  type: object
+  title: GetWorkspaceListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    workspaces:
+      type: array
+      description: Workspaces retrieved.
+      items:
+        $ref: '#/WorkspaceResponse'
+  x-tags:
+    - Workspace
+PutWorkspaceParam:
+  type: object
+  title: PutWorkspaceParam
+  properties:
+    id:
+      type: string
+      description: The ID of the workspace to update.
+      examples:
+        - 2001210215096173faX
+    name:
+      type: string
+      description: The name of the workspace.
+      examples:
+        - Test WS
+  required:
+    - id
+    - name
+  x-tags:
+    - Workspace
+PutWorkspaceResponse:
+  type: object
+  title: PutWorkspaceResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    workspace:
+      $ref: '#/WorkspaceResponse'
+  x-tags:
+    - Workspace
+WorkspaceUserResponse:
+  type: object
+  title: WorkspaceUserResponse
+  properties:
+    color:
+      type: string
+      description: The background color of the default profile image of the user.
+      examples:
+        - '#00ff00'
+    department:
+      type: string
+      description: The department name of the user.
+      examples:
+        - backend
+    group:
+      type: array
+      description: The groups the user belongs to.
+      items:
+        $ref: '#/WsGroup'
+    is_admin:
+      type: boolean
+      description: Whether the user is an administrator of the workspace.
+      examples:
+        - true
+    is_master:
+      type: boolean
+      description: Whether the user is the master of the workspace.
+      examples:
+        - false
+    joined:
+      type: string
+      description: The date and time at which the user joined the workspace.
+      examples:
+        - '2020-02-03T01:31:37Z'
+    name:
+      type: string
+      description: The display name of the user.
+      examples:
+        - jenny
+    photo:
+      type: string
+      description: 'The URL path of the profile image, relative to `https://files.swit.io`.'
+      examples:
+        - /profile/20120211324834567/dawilOPyY6GS3XFdtEQ2y0qy.png
+    status:
+      type: string
+      description: Whether the user is active or inactive in the workspace.
+      examples:
+        - act
+    status_msg:
+      type: string
+      description: The status message the user has left.
+      examples:
+        - my status
+    tel:
+      type: string
+      description: The phone number of the user.
+      examples:
+        - +1 222-333-4444
+    user_email:
+      type: string
+      description: The email address of the user.
+      readOnly: true
+      examples:
+        - jane@example.com
+    user_id:
+      type: string
+      description: The ID of the user.
+      examples:
+        - 191120042719809wVlw
+  x-tags:
+    - Workspace
+WsGroup:
+  type: object
+  title: WsGroup
+  properties:
+    description:
+      type: string
+      description: The description of the group.
+      examples:
+        - They are leaders for each part
+    grp_name:
+      type: string
+      description: The name of the group.
+      examples:
+        - Leaders
+    guser_id:
+      type: string
+      description: The ID of the group.
+      examples:
+        - '20071408275494179'
+    ws_id:
+      type: string
+      description: The ID of the workspace where the group belongs.
+      examples:
+        - 7kYTjHXN92FUutGA
+  x-tags:
+    - Workspace
+GetWorkspaceUserListResponse:
+  type: object
+  title: GetWorkspaceUserListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    user:
+      type: array
+      description: User information of each member retrieved.
+      items:
+        $ref: '#/WorkspaceUserResponse'
+  x-tags:
+    - Workspace
+AddCompanyWorkspaceInviteParam:
+  type: object
+  title: AddCompanyWorkspaceInviteParam
+  properties:
+    id:
+      type: string
+      description: The ID of the workspace to invite the user to.
+      examples:
+        - 7kYTjHXN98FUutKL
+    user_id:
+      type: string
+      description: 'The ID of the user to invite to the workspace. (If values are provided for both "user_id" and "user_ids", then "user_ids" will take precedence.)'
+      examples:
+        - 2010161727509IJFTiX
+    user_ids:
+      type: array
+      description: 'IDs of users to invite to the workspace. (If values are provided for both "user_id" and "user_ids", then "user_ids" will take precedence.)'
+      examples:
+        - - 2112060056120j8XoA6S
+          - 1905312354988s2CwS2A
+          - 200205040110mWrxpRT
+      items:
+        type: string
+  required:
+    - id
+  x-tags:
+    - Workspace
+AddCompanyWorkspaceInviteResponse:
+  type: object
+  title: AddCompanyWorkspaceInviteResponse
+  description: An object wrapping a Swit resource.
+  x-tags:
+    - Workspace
+WorkspaceGroup:
+  type: object
+  title: WorkspaceGroup
+  description: The properties of a group in a workspace.
+  properties:
+    created:
+      type: string
+      description: The date and time at which the group was created.
+      examples:
+        - '2020-07-11T08:28:12Z'
+    description:
+      type: string
+      description: The description of the group.
+      examples:
+        - Team leaders.
+    grp_name:
+      type: string
+      description: The name of the group.
+      examples:
+        - Leadership
+    guser_id:
+      type: string
+      description: The ID of the group.
+      examples:
+        - '20071408275494179'
+    status:
+      enum:
+        - act
+        - leave
+      description: |-
+        The status of the group.
+
+        - `act`: Active channel.
+        - `leave`: Deleted channel.
+    user_count:
+      type: integer
+      description: The number of group members.
+      examples:
+        - 10
+    ws_id:
+      type: string
+      description: The ID of the workspace where the group belongs.
+      examples:
+        - 7kPTjHXN98FUutGA
+  x-tags:
+    - Workspace
+Emoji:
+  type: object
+  title: Emoji
+  description: The properties of a custom emoji.
+  properties:
+    created:
+      type: string
+      description: The date and time at which the custom emoji was created.
+      examples:
+        - '2023-01-02T16:35:53.58012Z'
+    emoji_id:
+      type: string
+      description: The ID of the custom emoji.
+      examples:
+        - 230101163540spKxT3g
+    name:
+      type: string
+      description: The name of the custom emoji.
+      examples:
+        - helloswitty
+    path:
+      type: string
+      description: 'The image path of the custom emoji. This path is relative to `https://files.swit.io`.'
+      examples:
+        - /v2/workspace/2210140701188923AcB/emoji/230308163540B6yudw4.png
+    user_id:
+      type: string
+      description: The ID of the user who created the custom emoji.
+      examples:
+        - 221038491090jTdMSn1
+    ws_id:
+      type: string
+      description: The ID of The workspace where the custom emoji was created.
+      examples:
+        - 2210040701188923AcB
+  x-tags:
+    - Workspace
+GetChannelResponse:
+  type: object
+  title: GetChannelResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    channel:
+      $ref: '#/ChannelResponse'
+  x-tags:
+    - Channel
+ChannelResponse:
+  type: object
+  title: ChannelResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    created:
+      type: string
+      description: The date and time at which the channel was created.
+      examples:
+        - '2020-03-14T05:00:07Z'
+    description:
+      type: string
+      description: Description on the purpose of the channel.
+      examples:
+        - This channel is for team-wide communication and announcements. All team members are in this channel.
+    host_id:
+      type: string
+      description: The ID of the host of the channel.
+      examples:
+        - 1908210134210XIiU3W
+    id:
+      type: string
+      description: The ID of the channel.
+      examples:
+        - 200314050007273CcYa
+    is_archived:
+      type: boolean
+      description: Whether the channel is archived.
+      examples:
+        - false
+    is_member:
+      type: boolean
+      description: Whether the user joined the channel.
+      examples:
+        - true
+    is_prev_chat_visible:
+      type: boolean
+      description: Whether the channel discloses previous messages to new members.
+      examples:
+        - true
+    is_private:
+      type: boolean
+      description: Whether the channel is private.
+      examples:
+        - false
+    is_starred:
+      type: boolean
+      description: Whether the channel is starred by the user.
+      examples:
+        - false
+    name:
+      type: string
+      description: The name of the channel.
+      examples:
+        - Marketing channel
+    type:
+      type: string
+      description: |-
+        Type of the channel.
+
+        - `dfl`: The channel is the default chat room joined by all workspace members.
+        - `gen`: The channel is an additionally created group chat.
+      examples:
+        - dfl
+  x-tags:
+    - Channel
+GetChannelListResponse:
+  type: object
+  title: GetChannelListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    channels:
+      type: array
+      description: Details of each channel retrieved.
+      items:
+        $ref: '#/ChannelResponse'
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+  x-tags:
+    - Channel
+AddChannelParam:
+  type: object
+  title: AddChannelParam
+  properties:
+    description:
+      type: string
+      description: The description on the purpose of the channel.
+      examples:
+        - This is a channel for the marketing team.
+    is_prev_chat_visible:
+      type: boolean
+      description: Whether to disclose previous messages to new members.
+      examples:
+        - true
+    is_private:
+      type: boolean
+      description: Whether to keep the channel private.
+      default: false
+      examples:
+        - false
+    name:
+      type: string
+      description: The name of the channel.
+      examples:
+        - Marketing channel
+    workspace_id:
+      type: string
+      description: The ID of the workspace where to create the channel.
+      examples:
+        - 2002130601276977jqA
+  required:
+    - name
+    - workspace_id
+  x-tags:
+    - Channel
+AddChannelResponse:
+  type: object
+  title: AddChannelResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    channel:
+      $ref: '#/ChannelResponse'
+  x-tags:
+    - Channel
+PutChannelParam:
+  type: object
+  title: PutChannelParam
+  properties:
+    description:
+      type: string
+      description: The description or purpose of the channel.
+      examples:
+        - This is the channel's description.
+    id:
+      type: string
+      description: The ID of the channel.
+      examples:
+        - '20020409515949841'
+    is_prev_chat_visible:
+      type: boolean
+      description: Whether to disclose previous messages to new members.
+      examples:
+        - true
+    name:
+      type: string
+      description: The name of the channel.
+      examples:
+        - Marketing channel
+    update_fields:
+      type: array
+      description: The fields to update for the channel.
+      examples:
+        - - name
+          - description
+          - is_prev_chat_visible
+      items:
+        type: string
+  required:
+    - id
+  x-tags:
+    - Channel
+PutChannelResponse:
+  type: object
+  title: PutChannelResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    channel:
+      $ref: '#/ChannelResponse'
+  x-tags:
+    - Channel
+GetChannelUserListResponse:
+  type: object
+  title: GetChannelUserListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    users:
+      type: array
+      description: The information of users retrieved.
+      items:
+        $ref: '#/ChannelUserResponse'
+  x-tags:
+    - Channel
+ChannelUserResponse:
+  type: object
+  title: ChannelUserResponse
+  properties:
+    id:
+      type: string
+      description: The user ID of the member.
+      examples:
+        - 1908210134210XIiU3W
+    name:
+      type: string
+      description: The display name of the member.
+      examples:
+        - sally
+  x-tags:
+    - Channel
+AddChannelUserInviteParam:
+  type: object
+  title: AddChannelUserInviteParam
+  properties:
+    id:
+      type: string
+      description: The ID of the channel to invite the users to.
+      examples:
+        - 200211072219662AoSt
+    user_ids:
+      type: array
+      description: The IDs of the users to invite.
+      examples:
+        - - 190826072741481FcvV
+          - 220327051250T3AfDDu
+      items:
+        type: string
+  required:
+    - id
+    - user_ids
+  x-tags:
+    - Channel
+DelChannelUserParam:
+  type: object
+  title: DelChannelUserParam
+  properties:
+    ch_id:
+      type: string
+      description: The ID of the channel to remove the users from.
+      examples:
+        - 200211072219662AoSt
+    user_ids:
+      type: array
+      description: The IDs of the users to remove.
+      examples:
+        - - 190826072741481FcvV
+          - 220327051250T3AfDDu
+      items:
+        type: string
+  required:
+    - ch_id
+    - user_ids
+  x-tags:
+    - Channel
+UpdateChannelArchiveParam:
+  type: object
+  title: UpdateChannelArchiveParam
+  properties:
+    archive:
+      type: boolean
+      description: Whether to archive (`true`) or unarchive (`false`) the channel.
+      examples:
+        - true
+    id:
+      type: string
+      description: The ID of the channel to archive or unarchive.
+      examples:
+        - 200211072219662AoSt
+  required:
+    - id
+  x-tags:
+    - Channel
+Message:
+  type: object
+  title: Message
+  description: The properties of a message.
+  properties:
+    assets:
+      type: array
+      description: File attachments to the message.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    attachments:
+      $ref: '#/Attachments'
+    channel_id:
+      type: string
+      description: The ID of the channel.
+      examples:
+        - 200330060739965p5HE
+    comment_count:
+      type: integer
+      description: The number of comments added.
+      examples:
+        - 3
+    content:
+      type: string
+      description: The content of the message.
+      examples:
+        - chatting
+    created:
+      type: string
+      description: The date and time at which the message was created.
+      examples:
+        - '2020-03-14T05:00:07Z'
+    message_id:
+      type: string
+      description: The ID of the message.
+      examples:
+        - 2004010524012355f16
+    user_id:
+      type: string
+      description: The ID of the user who created the message.
+      examples:
+        - 1908210134210XIiU3W
+    user_name:
+      type: string
+      description: The display name of the user who created the message.
+      examples:
+        - sally
+  x-tags:
+    - Message
+ExternalAssetInfo:
+  type: object
+  title: ExternalAssetInfo
+  properties:
+    file_desc:
+      type: string
+      description: The description of the file.
+      examples:
+        - This is my image file.
+      x-deprecated: true
+    file_mime:
+      type: string
+      description: The MIME type of the file.
+      examples:
+        - image
+    file_name:
+      type: string
+      description: The name of the file.
+      examples:
+        - my_image.png
+    file_path:
+      type: string
+      description: The URL path of the file.
+      examples:
+        - 'https://files.swit.io/workspace/5kASjQWE98FUvrGA/232312112730zaAQgdV/232312112730LviVDKj.png'
+    file_size:
+      type: integer
+      description: The size of the file in bytes.
+      examples:
+        - 6232
+    thumbnail:
+      type: string
+      description: The Thumbnail URL of the file.
+      examples:
+        - 'https://files.swit.io/workspace/5kASjQWE98FUvrGA/232312112730zaAQgdV/232312112730LviVDKj_SWIT512.png'
+  x-tags:
+    - Task
+Attachments:
+  type: array
+  description: |-
+    List of data attachments to the message.
+
+    Refer to the [AttachmentView](/docs/user-actions/ref/schemas/attachment-view) section for more details. 
+
+    When making a request with this property, only `attachment_type=custom` is allowed.
+  items:
+    type: object
+    properties:
+      attachment_type:
+        enum:
+          - custom
+          - chat
+          - task
+          - mail
+          - calendar
+          - og
+        description: 'The type of the attachment. Note that when making a request, only `custom` is allowed as a value.'
+      values:
+        type: array
+        description: The contents of the attachment.
+        examples:
+          - - header:
+                app_id: 221213015310hXj6FN8
+                title: This is a view title
+                subtitle: Add a subtitle if needed
+              body:
+                elements:
+                  - type: divider
+              footer:
+                buttons:
+                  - type: button
+                    label: Close
+                    style: primary_filled
+                    static_action:
+                      action_type: close_view
+        items:
+          type: object
+  x-tags:
+    - Message
+GetMessageListResponse:
+  type: object
+  title: GetMessageListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    messages:
+      type: array
+      description: Details of each message retrieved.
+      items:
+        $ref: '#/Message'
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+  x-tags:
+    - Message
+CreateMessageParam:
+  type: object
+  title: CreateMessageParam
+  properties:
+    assets:
+      type: array
+      description: File attachments to the message.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    attachments:
+      $ref: '#/Attachments'
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    channel_id:
+      type: string
+      description: The ID of the channel where to create the message.
+      examples:
+        - 191206013943685DslC
+    content:
+      type: string
+      description: The content of the message.
+      examples:
+        - This is a message.
+    external_asset_type:
+      enum:
+        - google_drive
+        - gcp_storage
+      description: |-
+        The storage type of the attached file.
+        - `google_drive`: Google Drive files.
+        - `gcp_storage`: All other types of files.
+  required:
+    - channel_id
+    - content
+  x-tags:
+    - Message
+CreateMessageResponse:
+  type: object
+  title: CreateMessageResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    message:
+      $ref: '#/Message'
+  x-tags:
+    - Message
+CreateMessageFromMailResponse:
+  type: object
+  title: CreateMessageFromMailResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    message:
+      type: object
+      description: The properties of a message.
+      properties:
+        channel_id:
+          type: string
+          description: The ID of the channel the email was shared.
+          examples:
+            - 200330060739965p5HE
+        created:
+          type: string
+          description: The date and time at which the email was shared.
+          examples:
+            - '2020-03-14T05:00:07Z'
+        message_id:
+          type: string
+          description: The ID of the message.
+          examples:
+            - 2004010524012355f16
+  x-tags:
+    - Message
+DeleteMessageParam:
+  type: object
+  title: DeleteMessageParam
+  properties:
+    id:
+      type: string
+      description: The ID of the message.
+      examples:
+        - 21080607597093STYhd
+  required:
+    - id
+  x-tags:
+    - Message
+AddMessageReactionParam:
+  type: object
+  title: AddMessageReactionParam
+  properties:
+    message_id:
+      type: string
+      description: The ID of the message to react to.
+      examples:
+        - 21080607597093STYhd
+    reaction_name:
+      type: string
+      description: "The alias of the reaction emoji surrounded by a preceding and a trailing ':' symbol. Get the whole list of available emojis and their aliases from https://github.com/github/gemoji/blob/master/db/emoji.json."
+      examples:
+        - ':joy:'
+  required:
+    - message_id
+    - reaction_name
+  x-tags:
+    - Message
+AddMessageReactionResponse:
+  type: object
+  title: AddMessageReactionResponse
+  description: An object wrapping a Swit resource.
+  x-tags:
+    - Message
+DelMessageReactionParam:
+  type: object
+  title: DelMessageReactionParam
+  properties:
+    message_id:
+      type: string
+      description: The ID of the message to remove the reaction emoji from.
+      examples:
+        - 21080607597093STYhd
+    reaction_name:
+      type: string
+      description: "The alias of the reaction emoji surrounded by a preceding and a trailing ':' symbol. Get the whole list of available emojis and their aliases from https://github.com/github/gemoji/blob/master/db/emoji.json."
+      examples:
+        - ':joy:'
+  required:
+    - message_id
+    - reaction_name
+  x-tags:
+    - Message
+GetMessageCommentListResponse:
+  type: object
+  title: GetMessageCommentListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    comments:
+      type: array
+      description: Details of each comment retrieved.
+      items:
+        $ref: '#/Comment'
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+  x-tags:
+    - MessageComment
+Comment:
+  type: object
+  title: Comment
+  description: The properties for a comment.
+  properties:
+    assets:
+      type: array
+      description: File attachments to the comment.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    comment_id:
+      type: string
+      description: The ID of the comment.
+      examples:
+        - 200401052521746EFE3
+    content:
+      type: string
+      description: The content of the comment.
+      examples:
+        - Idea comment
+    created:
+      type: string
+      description: The date and time at which the comment was posted.
+      examples:
+        - '2020-03-14T05:00:07Z'
+    user_id:
+      type: string
+      description: The ID of the user who posted the comment.
+      examples:
+        - 2004010524012355f16
+    user_name:
+      type: string
+      description: The display name of the user who posted the comment.
+      examples:
+        - sally
+  x-tags:
+    - MessageComment
+CreateMessageCommentParam:
+  type: object
+  title: CreateMessageCommentParam
+  properties:
+    assets:
+      $ref: '#/ExternalAssetInfo'
+      description: File attachments to the message comment.
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    content:
+      type: string
+      description: The content of the comment.
+      examples:
+        - This is a comment.
+    external_asset_type:
+      enum:
+        - google_drive
+        - gcp_storage
+      description: |-
+        The storage type of the attached file.
+        - `google_drive`: Google Drive files.
+        - `gcp_storage`: All other types of files.
+    message_id:
+      type: string
+      description: The ID of the message to comment on.
+      examples:
+        - 21080607597093STYhd
+  required:
+    - content
+    - message_id
+  x-tags:
+    - MessageComment
+CreateMessageCommentResponse:
+  type: object
+  title: CreateMessageCommentResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    comment:
+      $ref: '#/Comment'
+  x-tags:
+    - MessageComment
+DeleteMessageCommentParam:
+  type: object
+  title: DeleteMessageCommentParam
+  properties:
+    id:
+      type: string
+      description: The ID of the comment.
+      examples:
+        - 210807140621i9YYZ1u
+  required:
+    - id
+  x-tags:
+    - MessageComment
+GetIdeaResponse:
+  type: object
+  title: GetIdeaResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    idea:
+      $ref: '#/Idea'
+  x-tags:
+    - Idea
+Idea:
+  type: object
+  title: Idea
+  description: The properties of an idea.
+  properties:
+    assets:
+      type: array
+      description: File attachments to the idea.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    channel_id:
+      type: string
+      description: The ID of the channel.
+      examples:
+        - 200330060739965p5HE
+    comment_count:
+      type: integer
+      description: The number of comments added.
+      examples:
+        - 3
+    content:
+      type: string
+      description: The content of the idea.
+      examples:
+        - idea content
+    created:
+      type: string
+      description: The date and time at which the idea was created.
+      examples:
+        - '2020-03-14T05:00:07Z'
+    idea_id:
+      type: string
+      description: The ID of the idea.
+      examples:
+        - 2004010524012355f16
+    user_id:
+      type: string
+      description: The ID of the user who created the idea.
+      examples:
+        - 1908210134210XIiU3W
+    user_name:
+      type: string
+      description: The display name of the user who created the idea.
+      examples:
+        - sally
+  x-tags:
+    - Idea
+GetIdeaListResponse:
+  type: object
+  title: GetIdeaListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    ideas:
+      type: array
+      description: Details of each post retrieved.
+      items:
+        $ref: '#/Idea'
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+  x-tags:
+    - Idea
+CreateIdeaParam:
+  type: object
+  title: CreateIdeaParam
+  properties:
+    assets:
+      $ref: '#/ExternalAssetInfo'
+      description: File attachments to the idea.
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    channel_id:
+      type: string
+      description: The ID of the channel where to create the idea.
+      examples:
+        - 201027126104712l114
+    content:
+      type: string
+      description: The content of the idea.
+      examples:
+        - This is a idea.
+    external_asset_type:
+      enum:
+        - google_drive
+        - gcp_storage
+      description: |-
+        The storage type of the attached file.
+        - `google_drive`: Google Drive files.
+        - `gcp_storage`: All other types of files.
+  required:
+    - channel_id
+    - content
+  x-tags:
+    - Idea
+CreateIdeaResponse:
+  type: object
+  title: CreateIdeaResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    idea:
+      $ref: '#/Idea'
+  x-tags:
+    - Idea
+DelIdeaParam:
+  type: object
+  title: DelIdeaParam
+  properties:
+    idea_id:
+      type: string
+      description: The ID of the idea.
+      examples:
+        - 2004010524012355f16
+  required:
+    - idea_id
+  x-tags:
+    - Idea
+AddIdeaReactionParam:
+  type: object
+  title: AddIdeaReactionParam
+  properties:
+    idea_id:
+      type: string
+      description: The ID of idea to react to.
+      examples:
+        - 21080344042039BrlBU
+    reaction_name:
+      type: string
+      description: "The alias of the reaction emoji surrounded by a preceding and a trailing ':' symbol. Get the whole list of available emojis and their aliases from https://github.com/github/gemoji/blob/master/db/emoji.json."
+      examples:
+        - ':joy:'
+  required:
+    - idea_id
+    - reaction_name
+  x-tags:
+    - Idea
+AddIdeaReactionResponse:
+  type: object
+  title: AddIdeaReactionResponse
+  description: An object wrapping a Swit resource.
+  x-tags:
+    - Idea
+DelIdeaReactionParam:
+  type: object
+  title: DelIdeaReactionParam
+  properties:
+    idea_id:
+      type: string
+      description: The ID of the idea to remove the reaction emoji from.
+      examples:
+        - 21080344042039BrlBU
+    reaction_name:
+      type: string
+      description: "The alias of the reaction emoji surrounded by a preceding and a trailing ':' symbol. Get the whole list of available emojis and their aliases from https://github.com/github/gemoji/blob/master/db/emoji.json."
+      examples:
+        - ':joy:'
+  required:
+    - idea_id
+    - reaction_name
+  x-tags:
+    - Idea
+GetIdeaCommentListResponse:
+  type: object
+  title: GetIdeaCommentListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    comments:
+      type: array
+      description: Details of each comment retrieved.
+      items:
+        $ref: '#/Comment'
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+  x-tags:
+    - IdeaComment
+CreateIdeaCommentParam:
+  type: object
+  title: CreateIdeaCommentParam
+  properties:
+    assets:
+      $ref: '#/ExternalAssetInfo'
+      description: File attachments to the idea comment.
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    content:
+      type: string
+      description: The content of the comment.
+      examples:
+        - This is a comment.
+    external_asset_type:
+      enum:
+        - google_drive
+        - gcp_storage
+      description: |-
+        The storage type of the attached file.
+        - `google_drive`: Google Drive files.
+        - `gcp_storage`: All other types of files.
+    idea_id:
+      type: string
+      description: The ID of the idea to comment on.
+      examples:
+        - 21080607597093STYhd
+  required:
+    - content
+    - idea_id
+  x-tags:
+    - IdeaComment
+CreateIdeaCommentResponse:
+  type: object
+  title: CreateIdeaCommentResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    comment:
+      $ref: '#/Comment'
+  x-tags:
+    - IdeaComment
+DelIdeaCommentParam:
+  type: object
+  title: DelIdeaCommentParam
+  properties:
+    id:
+      type: string
+      description: The ID of the comment.
+      examples:
+        - 210807140621i9YYZ1u
+  required:
+    - id
+  x-tags:
+    - IdeaComment
+GetProjectInfoResponse:
+  type: object
+  title: GetProjectInfoResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    project:
+      $ref: '#/ProjectResponse'
+  required:
+    - project
+  x-tags:
+    - Project
+ProjectResponse:
+  type: object
+  title: ProjectResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    created:
+      type: string
+      description: The date and time at which the project was created.
+      examples:
+        - '2020-03-14T05:00:07Z'
+    description:
+      type: string
+      description: Description on the purpose of the project.
+      examples:
+        - This is the project's description.
+    host_id:
+      type: string
+      description: The user ID of the host of the project.
+      examples:
+        - 1908210134210XIiU3W
+    id:
+      type: string
+      description: The ID of the project.
+      examples:
+        - 200211072219662AoSt
+    is_archived:
+      type: boolean
+      description: Whether the project is archived.
+      examples:
+        - false
+    is_member:
+      type: boolean
+      description: Whether the user joined the project.
+      examples:
+        - true
+    is_private:
+      type: boolean
+      description: Whether the project is private.
+      examples:
+        - false
+    is_starred:
+      type: boolean
+      description: Whether the project is starred by the user.
+      examples:
+        - false
+    name:
+      type: string
+      description: The name of the project.
+      examples:
+        - This is a name.
+  x-tags:
+    - Project
+GetProjectListResponse:
+  type: object
+  title: GetProjectListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    projects:
+      type: array
+      description: Details of each project retrieved.
+      items:
+        $ref: '#/ProjectResponse'
+  x-tags:
+    - Project
+AddProjectParam:
+  type: object
+  title: AddProjectParam
+  properties:
+    description:
+      type: string
+      description: Description on the purpose of the project.
+      examples:
+        - This is the project's description.
+    is_private:
+      type: boolean
+      description: Whether to keep the project private.
+      default: false
+      examples:
+        - false
+    name:
+      type: string
+      description: The name of the project.
+      examples:
+        - This is a name.
+    workspace_id:
+      type: string
+      description: The ID of the workspace where to create the project.
+      examples:
+        - 2001210215096173faX
+  required:
+    - name
+    - workspace_id
+  x-tags:
+    - Project
+AddProjectResponse:
+  type: object
+  title: AddProjectResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    project:
+      $ref: '#/ProjectResponse'
+  required:
+    - project
+  x-tags:
+    - Project
+PutProjectParam:
+  type: object
+  title: PutProjectParam
+  properties:
+    description:
+      type: string
+      description: Description on the purpose of the project.
+      examples:
+        - This is the project's description.
+    id:
+      type: string
+      description: The ID of the project.
+      examples:
+        - 200211072219662AoSt
+    name:
+      type: string
+      description: The name of the project.
+      examples:
+        - This is a name.
+    update_fields:
+      type: array
+      description: The fields to update.
+      examples:
+        - - name
+          - description
+      items:
+        type: string
+  required:
+    - id
+  x-tags:
+    - Project
+PutProjectResponse:
+  type: object
+  title: PutProjectResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    project:
+      $ref: '#/ProjectResponse'
+  required:
+    - project
+  x-tags:
+    - Project
+UpdateProjectArchiveParam:
+  type: object
+  title: UpdateProjectArchiveParam
+  properties:
+    archive:
+      type: boolean
+      description: Whether to archive (`true`) or unarchive (`false`) the project.
+      examples:
+        - true
+    id:
+      type: string
+      description: The ID of the project to archive or unarchive.
+      examples:
+        - 200211072219662AoSt
+  required:
+    - id
+  x-tags:
+    - Project
+GetProjectUserListResponse:
+  type: object
+  title: GetProjectUserListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    users:
+      type: array
+      description: User information of each member retrieved.
+      items:
+        $ref: '#/ProjectUserResponse'
+  x-tags:
+    - Project
+ProjectUserResponse:
+  type: object
+  title: ProjectUserResponse
+  properties:
+    id:
+      type: string
+      description: The user ID of the member.
+      examples:
+        - 1908210134210XIiU3W
+    name:
+      type: string
+      description: The display name of the member.
+      examples:
+        - sally
+  x-tags:
+    - Project
+GetProjectTagListResponse:
+  type: object
+  title: GetProjectTagListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    projectTags:
+      type: array
+      description: Details of each tag retrieved.
+      items:
+        $ref: '#/ProjectTagResponse'
+  x-tags:
+    - Project
+ProjectTagResponse:
+  type: object
+  title: ProjectTagResponse
+  properties:
+    created:
+      type: string
+      description: The date and time at which the tag was created.
+      examples:
+        - '2020-02-03T01:31:37Z'
+    tag_data:
+      type: string
+      description: The content of the tag.
+      examples:
+        - 4Q
+    tag_id:
+      type: string
+      description: The ID of the tag.
+      examples:
+        - 200314050007273CcYa
+  x-tags:
+    - Project
+StatusCustom:
+  type: object
+  title: StatusCustom
+  description: A custom status.
+  properties:
+    color_label:
+      type: string
+      description: The color label associated with the status.
+      examples:
+        - LIGHT_GRAY
+    status_attribute:
+      type: string
+      description: |-
+        The attribute associated with the status:
+
+        - `NOT_STARTED`: The task is in the Backlog.
+        - `DONE`: The task is in the "Done" status.
+        - `IN_PROGRESS`: The task is in any other status.
+      examples:
+        - IN_PROGRESS
+    status_id:
+      type: string
+      description: The ID of the status.
+      examples:
+        - 220704893496H2gs32H
+    status_name:
+      type: string
+      description: The name of the status.
+      examples:
+        - To Do
+  x-tags:
+    - Task
+GetProjectBucketInfoResponse:
+  type: object
+  title: GetProjectBucketInfoResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    bucket:
+      $ref: '#/BucketResponse'
+  x-tags:
+    - ProjectBucket
+BucketResponse:
+  type: object
+  title: BucketResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    created:
+      type: string
+      description: The date and time at which the bucket was created.
+      examples:
+        - '2020-03-14T05:00:07Z'
+    id:
+      type: string
+      description: The ID of the bucket.
+      examples:
+        - 2002130601276977jqA
+    name:
+      type: string
+      description: The title of the bucket.
+      examples:
+        - This is a bucket
+    project_id:
+      type: string
+      description: The ID of the project where to add the bucket.
+      examples:
+        - 2002172358144856FyQ
+  x-tags:
+    - ProjectBucket
+GetProjectBucketListResponse:
+  type: object
+  title: GetProjectBucketListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    buckets:
+      type: array
+      description: Details of each bucket retrieved.
+      items:
+        $ref: '#/BucketResponse'
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+  x-tags:
+    - ProjectBucket
+AddProjectBucketParam:
+  type: object
+  title: AddProjectBucketParam
+  properties:
+    name:
+      type: string
+      description: The title of the bucket.
+      examples:
+        - This is a bucket
+    project_id:
+      type: string
+      description: The ID of the project where to add the bucket.
+      examples:
+        - 2002130601276977jqA
+  required:
+    - name
+    - project_id
+  x-tags:
+    - ProjectBucket
+AddProjectBucketResponse:
+  type: object
+  title: AddProjectBucketResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    bucket:
+      $ref: '#/BucketResponse'
+  x-tags:
+    - ProjectBucket
+PutProjectBucketParam:
+  type: object
+  title: PutProjectBucketParam
+  properties:
+    id:
+      type: string
+      description: The ID of the bucket to update.
+      examples:
+        - 2002172358144856FyQ
+    name:
+      type: string
+      description: New title for the bucket.
+      examples:
+        - This is a bucket
+  required:
+    - id
+    - name
+  x-tags:
+    - ProjectBucket
+PutProjectBucketResponse:
+  type: object
+  title: PutProjectBucketResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    bucket:
+      $ref: '#/BucketResponse'
+  x-tags:
+    - ProjectBucket
+GetTaskInfoResponse:
+  type: object
+  title: GetTaskInfoResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    task:
+      $ref: '#/TaskResponse'
+  x-tags:
+    - Task
+TaskResponse:
+  type: object
+  title: TaskResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    assets:
+      type: array
+      description: File attachments to the task.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    assign:
+      type: string
+      description: |-
+        **`Deprecated`**. Use `assignees` instead.
+
+        The user ID of the assignee of the task. If not assigned, it returns `unassign`.
+      examples:
+        - 1908210134210XIiU3W
+      x-deprecated: true
+    assignees:
+      type: array
+      description: The user IDs of the assignees of the task.
+      examples:
+        - - 190826072741481FcvV
+          - 220327051250T3AfDDu
+      items:
+        type: string
+    bucket_id:
+      type: string
+      description: The ID of the bucket under which the task is placed.
+      examples:
+        - 190910095434996oSgI
+    color:
+      enum:
+        - '#f03621'
+        - '#f76363'
+        - '#ff8b00'
+        - '#ffbf00'
+        - '#8ac917'
+        - '#5a9216'
+        - '#00c7cf'
+        - '#478bff'
+        - '#1d5ecc'
+        - '#8f0099'
+        - '#7e828e'
+      description: The color assigned to the task.
+      examples:
+        - '#f03621'
+    comment_count:
+      type: integer
+      description: The number of comments added.
+      examples:
+        - 3
+    content:
+      type: string
+      description: The content of the task.
+      examples:
+        - This is a content.
+    end_date:
+      type: string
+      description: Date scheduled to finish the task.
+      examples:
+        - '2020-04-30'
+    follow:
+      type: array
+      description: The user IDs of the collaborators on the task.
+      examples:
+        - - 1908210134210XIiU3W
+          - 220327051250T3AfDDu
+          - 2004180101103cUipk3
+          - 1911020715193IHKLX
+      items:
+        type: string
+    id:
+      type: string
+      description: The ID of the task.
+      examples:
+        - 190910100433344Dtjf
+    isTime:
+      type: boolean
+      description: 'Whether the start or due time, including the specific time of day, is set for the task.'
+      examples:
+        - true
+    priority:
+      type: string
+      description: Priority set for the task.
+      examples:
+        - Normal
+    project_id:
+      type: string
+      description: The ID of the project that contains the task.
+      examples:
+        - 190910080935239ZRI5
+    rich_text:
+      type: boolean
+      description: Whether or not allows the user to customize the way text looks.
+      default: false
+    start_date:
+      type: string
+      description: Date scheduled to start the task.
+      examples:
+        - '2020-04-01'
+    status:
+      type: string
+      description: |-
+        **`Deprecated`**. Use `status_custom` instead.
+
+        Current status of the task:
+
+        - `ToDo`: The task is in the "To Do" status.
+        - `Doing`: The task is in the "Doing" status.
+        - `Done`: The task is in the "Done" status.
+        - **null**: The task is in the "Backlog" status.
+      examples:
+        - ToDo
+      x-deprecated: true
+    status_custom:
+      $ref: '#/StatusCustom'
+    title:
+      type: string
+      description: The title of the task.
+      examples:
+        - This is a title.
+    user_id:
+      type: string
+      description: The ID of the user who created the task.
+      examples:
+        - '19081502534623670'
+    parent_id:
+      type: string
+      description: The ID of the parent task.
+      examples:
+        - 1207810100433344Dtjy
+    subtask_count:
+      type: string
+      description: The number of subtasks the given task has.
+      examples:
+        - '3'
+  x-tags:
+    - Task
+GetTaskListProjectResponse:
+  type: object
+  title: GetTaskListProjectResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    tasks:
+      type: array
+      description: Details of each task retrieved.
+      items:
+        $ref: '#/TaskResponse'
+  x-tags:
+    - Task
+GetTaskListByColumnResponse:
+  type: object
+  title: GetTaskListByColumnResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    tasks:
+      type: array
+      description: Details of each task retrieved.
+      items:
+        $ref: '#/TaskResponse'
+  x-tags:
+    - Task
+GetTaskListMineResponse:
+  type: object
+  title: GetTaskListMineResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    tasks:
+      type: array
+      description: Details of each task retrieved.
+      items:
+        $ref: '#/TaskResponse'
+  x-tags:
+    - Task
+AddTaskParam:
+  type: object
+  title: AddTaskParam
+  properties:
+    assets:
+      type: array
+      description: File attachments to the task.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    assign:
+      type: string
+      description: The user ID of the member to whom to assign the task.
+      examples:
+        - 1908210134210XIiU3W
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    bucket_id:
+      type: string
+      description: The ID of the bucket the task is in.
+      examples:
+        - 2202172358144856AE1
+    color:
+      enum:
+        - '#f03621'
+        - '#f76363'
+        - '#ff8b00'
+        - '#ffbf00'
+        - '#8ac917'
+        - '#5a9216'
+        - '#00c7cf'
+        - '#478bff'
+        - '#1d5ecc'
+        - '#8f0099'
+        - '#7e828e'
+      description: Color assigned to the task.
+      examples:
+        - '#f03621'
+    content:
+      type: string
+      description: The content of the task.
+      examples:
+        - test content
+    create_type:
+      type: string
+      description: |-
+        Where the task is created from.
+        - `B`: Backlog
+        - `M`: My tasks
+        - `C`: Bucket
+        - `ALL`: Assignee & status
+        - `A`: Assignee
+        - `S`: Status
+      examples:
+        - ALL
+      x-deprecated: true
+    end_date:
+      type: string
+      description: Date by which the task will end. Use the `YYYY-MM-DD` format.
+      examples:
+        - '2019-02-28'
+    external_asset_type:
+      enum:
+        - google_drive
+        - gcp_storage
+      description: |-
+        The storage type of the attached file.
+        - `google_drive`: Google Drive files.
+        - `gcp_storage`: All other types of files.
+    follow:
+      type: string
+      description: The ID(s) of the member(s) to collaborate in the task.
+      examples:
+        - '1908210134210XIiU3W,1908210134210XI3029'
+    priority:
+      type: string
+      description: Priority to set for the task.
+      examples:
+        - Normal
+    project_id:
+      type: string
+      description: The ID of the project where to post the task.
+      examples:
+        - 2002172358144856FyQ
+    start_date:
+      type: string
+      description: Date on which the task starts. Use the `YYYY-MM-DD` format.
+      examples:
+        - '2019-01-30'
+    step:
+      type: string
+      description: |-
+        **`Deprecated`**. Update the status using `api/task.status.update` instead.
+
+        Status of the task:
+
+        - `ToDo`: Set the task's status to "To Do".
+        - `Doing`: Set the task's status to "Doing".
+        - `Done`: Set the task's status to "Done".
+
+        If not passed, the status is set to Backlog by default.
+      examples:
+        - ToDo
+      x-deprecated: true
+    tag:
+      type: string
+      description: The tag associated with the task.
+      readOnly: true
+      examples:
+        - '18113006130145890GI,1811300613014589205'
+    title:
+      type: string
+      description: The title of the task.
+      examples:
+        - This is a title
+    workspace_id:
+      type: string
+      description: The ID of the workspace that includes the target project. Only required when `mytask` is passed to the `project_id` parameter (for a Personal task).
+      examples:
+        - 200403011733309Yiti
+  required:
+    - project_id
+    - title
+  x-tags:
+    - Task
+AddTaskResponse:
+  type: object
+  title: AddTaskResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    task:
+      $ref: '#/TaskResponse'
+  x-tags:
+    - Task
+DelTaskParam:
+  type: object
+  title: DelTaskParam
+  properties:
+    id:
+      type: string
+      description: The ID of the task.
+      examples:
+        - 200302045745598izpK
+  required:
+    - id
+  x-tags:
+    - Task
+MoveTaskParam:
+  type: object
+  title: MoveTaskParam
+  properties:
+    assign:
+      type: boolean
+      description: Whether to include the assignee.
+      examples:
+        - true
+    follow:
+      type: boolean
+      description: Whether to include the collaborators.
+      examples:
+        - true
+    id:
+      type: string
+      description: The ID of the task to move.
+      examples:
+        - 190910100433344Dtjf
+    target_bucket_id:
+      type: string
+      description: The ID of the destination bucket.
+      examples:
+        - 190910095434996oSgI
+    target_project_id:
+      type: string
+      description: The ID of the destination project.
+      examples:
+        - 190910080935239ZRI5
+  required:
+    - id
+    - target_project_id
+  x-tags:
+    - Task
+MoveTaskResponse:
+  type: object
+  title: MoveTaskResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    task:
+      $ref: '#/TaskResponse'
+  x-tags:
+    - Task
+PutTaskParam:
+  type: object
+  title: PutTaskParam
+  properties:
+    assets:
+      type: array
+      description: File attachments to the task.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    assign:
+      type: string
+      description: The user ID of the member to whom to assign the task.
+      readOnly: true
+      examples:
+        - 1908210134210XIiU3W
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    bucket_id:
+      type: string
+      description: The ID of the bucket the task is in.
+      examples:
+        - 2202172358144856AE1
+    color:
+      enum:
+        - '#f03621'
+        - '#f76363'
+        - '#ff8b00'
+        - '#ffbf00'
+        - '#8ac917'
+        - '#5a9216'
+        - '#00c7cf'
+        - '#478bff'
+        - '#1d5ecc'
+        - '#8f0099'
+        - '#7e828e'
+      description: Color assigned to the task.
+      examples:
+        - '#f03621'
+    content:
+      type: string
+      description: The content of the task.
+      examples:
+        - test content
+    end_date:
+      type: string
+      description: Date by which the task will end. Use the `YYYY-MM-DD` format.
+      examples:
+        - '2019-02-28'
+    external_asset_type:
+      enum:
+        - google_drive
+        - gcp_storage
+      description: |-
+        The storage type of the attached file.
+        - `google_drive`: Google Drive files.
+        - `gcp_storage`: All other types of files.
+    follow:
+      type: string
+      description: The ID of the collabolators.
+      readOnly: true
+      examples:
+        - 1908210134210XIiU3W
+    id:
+      type: string
+      description: The ID of the task.
+      examples:
+        - 190910100433344Dtjf
+    priority:
+      type: string
+      description: Priority to set for the task.
+      examples:
+        - Normal
+    start_date:
+      type: string
+      description: Date on which the task starts. Use the `YYYY-MM-DD` format.
+      examples:
+        - '2019-01-30'
+    step:
+      type: string
+      description: |-
+        Status of the task:
+
+        - `ToDo`: Set the task's status to "To Do".
+        - `Doing`: Set the task's status to "Doing".
+        - `Done`: Set the task's status to "Done".
+      examples:
+        - ToDo
+    tag:
+      type: string
+      description: The tag of the task.
+      readOnly: true
+      examples:
+        - 18113006130145890GI
+    title:
+      type: string
+      description: The title of the task.
+      examples:
+        - This is a title
+  required:
+    - id
+  x-tags:
+    - Task
+PutTaskResponse:
+  type: object
+  title: PutTaskResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    task:
+      $ref: '#/TaskResponse'
+  x-tags:
+    - Task
+AddTaskAssigneeParam:
+  type: object
+  title: AddTaskAssigneeParam
+  properties:
+    task_id:
+      type: string
+      description: The ID of the task.
+      examples:
+        - 190910100433344Dtjf
+    user_id:
+      type: string
+      description: 'The user ID of the assignee. If both user_id and user_ids parameters are entered, priority is applied based on the value of the user_id parameter.(user_id랑 user_ids에 모두 값이 들어가 있으면, user_ids 기준으로 적용됨)'
+      examples:
+        - '19081502534623670'
+    user_ids:
+      type: array
+      description: 'User IDs of assignees. If both user_id and user_ids parameters are entered, priority is applied based on the value of the user_id parameter. (user_id랑 user_ids에 모두 값이 들어가 있으면, user_ids 기준으로 적용됨)'
+      examples:
+        - - 2112060056120j8XoA6S
+          - 1905312354988s2CwS2A
+          - 200205040110mWrxpRT
+      items:
+        type: string
+  required:
+    - task_id
+  x-tags:
+    - Task
+AddTaskAssigneeResponse:
+  type: object
+  title: AddTaskAssigneeResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    assignee_id:
+      type: string
+      description: The user ID of the assignee.
+      examples:
+        - '19081502534623670'
+    assignee_ids:
+      type: array
+      description: User IDs of assignees.
+      examples:
+        - - 2112060056120j8XoA6S
+          - 1905312354988s2CwS2A
+          - 200205040110mWrxpRT
+      items:
+        type: string
+  x-tags:
+    - Task
+DelTaskAssigneeParam:
+  type: object
+  title: DelTaskAssigneeParam
+  properties:
+    task_id:
+      type: string
+      description: The ID of the task.
+      examples:
+        - 200305090347079ssCJ
+    user_id:
+      type: string
+      description: The ID of the member.
+      examples:
+        - '19081502534623670'
+  required:
+    - task_id
+    - user_id
+  x-tags:
+    - Task
+AddTaskFollowParam:
+  type: object
+  title: AddTaskFollowParam
+  properties:
+    task_id:
+      type: string
+      description: The ID of the task.
+      examples:
+        - 200305090347079ssCJ
+    user_id:
+      type: string
+      description: 'The user ID of the collaborator. If both user_id and user_ids parameters are entered, priority is applied based on the value of the user_id parameter.(user_id랑 user_ids에 모두 값이 들어가 있으면, user_ids 기준으로 적용됨)'
+      examples:
+        - '19081502534623670'
+    user_ids:
+      type: array
+      description: 'User IDs of collaborators. If both user_id and user_ids parameters are entered, priority is applied based on the value of the user_id parameter. (user_id랑 user_ids에 모두 값이 들어가 있으면, user_ids 기준으로 적용됨)'
+      examples:
+        - - 2112060056120j8XoA6S
+          - 1905312354988s2CwS2A
+          - 200205040110mWrxpRT
+      items:
+        type: string
+  required:
+    - task_id
+  x-tags:
+    - Task
+AddTaskFollowResponse:
+  type: object
+  title: AddTaskFollowResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    follower_id:
+      type: array
+      description: The user IDa of the collaborator.
+      examples:
+        - - '19081502534623670'
+          - 2001210215096173faX
+      items:
+        type: string
+  x-tags:
+    - Task
+DelTaskFollowParam:
+  type: object
+  title: DelTaskFollowParam
+  properties:
+    task_id:
+      type: string
+      description: The ID of the task.
+      examples:
+        - 200305090347079ssCJ
+    user_id:
+      type: string
+      description: The user ID of the collaborator.
+      examples:
+        - '19081502534623670'
+  required:
+    - task_id
+    - user_id
+  x-tags:
+    - Task
+AppendAssetTaskParam:
+  type: object
+  title: AppendAssetTaskParam
+  properties:
+    assets:
+      type: array
+      description: File attachments to the task.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    external_asset_type:
+      enum:
+        - google_drive
+        - gcp_storage
+      description: |-
+        The storage type of the attached file.
+        - `google_drive`: Google Drive files.
+        - `gcp_storage`: All other types of files.
+    id:
+      type: string
+      description: The ID of the task.
+      examples:
+        - 221031071570KNs6NFX
+    workspace_id:
+      type: string
+      description: The ID of the workspace.
+      examples:
+        - 200403011733309Yiti
+  required:
+    - id
+  x-tags:
+    - Task
+AddTaskCheckListParam:
+  type: object
+  title: AddTaskCheckListParam
+  properties:
+    content:
+      type: string
+      description: The content of the checklist item.
+      examples:
+        - This is a check list
+    task_id:
+      type: string
+      description: The ID of the task where to add the checklist item.
+      examples:
+        - 190910100433344Dtjf
+  required:
+    - content
+    - task_id
+  x-tags:
+    - TaskChecklist
+AddTaskCheckListResponse:
+  type: object
+  title: AddTaskCheckListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    taskChecklist:
+      $ref: '#/TaskChecklistResponse'
+  x-tags:
+    - TaskChecklist
+TaskChecklistResponse:
+  type: object
+  title: TaskChecklistResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    content:
+      type: string
+      description: The content of the checklist item.
+      examples:
+        - This is a check list
+    created:
+      type: string
+      description: The date and time at which the checklist item was created.
+      examples:
+        - '2020-03-14T05:00:07Z'
+    id:
+      type: string
+      description: The ID of the checklist item.
+      examples:
+        - '20031316413609430'
+    is_complete:
+      type: boolean
+      description: Whether the checklist item is complete.
+      examples:
+        - true
+    task_id:
+      type: string
+      description: The ID of the task.
+      examples:
+        - 190910100433344Dtjf
+    user_id:
+      type: string
+      description: The ID of the user who added the checklist item.
+      examples:
+        - 1908210134210XIiU3W
+  x-tags:
+    - TaskChecklist
+GetTaskCheckListResponse:
+  type: object
+  title: GetTaskCheckListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    taskChecklist:
+      $ref: '#/TaskChecklistResponse'
+  x-tags:
+    - TaskChecklist
+GetTaskCheckListListResponse:
+  type: object
+  title: GetTaskCheckListListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    taskChecklists:
+      type: array
+      description: Details of each checklist item retrieved.
+      items:
+        $ref: '#/TaskChecklistResponse'
+  x-tags:
+    - TaskChecklist
+DelTaskCheckListParam:
+  type: object
+  title: DelTaskCheckListParam
+  properties:
+    id:
+      type: string
+      description: The ID of the checklist.
+      examples:
+        - '20031316413609430'
+  required:
+    - id
+  x-tags:
+    - TaskChecklist
+PutTaskCheckListParam:
+  type: object
+  title: PutTaskCheckListParam
+  properties:
+    content:
+      type: string
+      description: The content of the checklist item.
+      examples:
+        - todo2
+    id:
+      type: string
+      description: The ID of the checklist item.
+      examples:
+        - '20031316413609430'
+    is_complete:
+      type: boolean
+      description: Whether the checklist item is complete.
+      examples:
+        - true
+    update_fields:
+      type: array
+      description: The fields to update.
+      examples:
+        - - content
+          - is_complete
+      items:
+        type: string
+        examples:
+          - '["content", "is_complete"]'
+  required:
+    - id
+  x-tags:
+    - TaskChecklist
+PutTaskCheckListResponse:
+  type: object
+  title: PutTaskCheckListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    taskChecklist:
+      $ref: '#/TaskChecklistResponse'
+  x-tags:
+    - TaskChecklist
+AddTaskCommentParam:
+  type: object
+  title: AddTaskCommentParam
+  properties:
+    assets:
+      type: array
+      description: File attachments to the task.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    content:
+      type: string
+      description: The content of the comment.
+      examples:
+        - This is a comment.
+    external_asset_type:
+      enum:
+        - google_drive
+        - gcp_storage
+      description: |-
+        The storage type of the attached file.
+        - `google_drive`: Google Drive files.
+        - `gcp_storage`: All other types of files.
+    task_id:
+      type: string
+      description: The ID of the task to comment on.
+      examples:
+        - 200305090347079ssCJ
+  required:
+    - content
+    - task_id
+  x-tags:
+    - TaskComment
+AddTaskCommentResponse:
+  type: object
+  title: AddTaskCommentResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    taskComment:
+      $ref: '#/TaskCommentResponse'
+  x-tags:
+    - TaskComment
+TaskCommentResponse:
+  type: object
+  title: TaskCommentResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    assets:
+      type: array
+      description: File attachments to the task.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    content:
+      type: string
+      description: The content of the comment.
+      examples:
+        - This is comment.
+    created:
+      type: string
+      description: The date and time at which the comment was posted.
+      examples:
+        - '2020-03-14T05:00:07Z'
+    id:
+      type: string
+      description: The ID of the comment.
+      examples:
+        - '19081502534611123'
+    rich_text:
+      type: boolean
+      description: Whether or not allows the user to customize the way text looks.
+      default: true
+    task_id:
+      type: string
+      description: The ID of the task.
+      examples:
+        - 190910100433344Dtjf
+    user_id:
+      type: string
+      description: The ID of the user who posted the comment.
+      examples:
+        - 1908210134210XIiU3W
+    user_name:
+      type: string
+      description: The display name of the user who posted the comment.
+      examples:
+        - sally
+  x-tags:
+    - TaskComment
+GetTaskCommentResponse:
+  type: object
+  title: GetTaskCommentResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    content:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    taskComments:
+      type: array
+      description: Details of each comment retrieved.
+      items:
+        $ref: '#/TaskCommentResponse'
+  x-tags:
+    - TaskComment
+DelTaskCommentParam:
+  type: object
+  title: DelTaskCommentParam
+  description: An object wrapping a Swit resource.
+  properties:
+    assets:
+      type: array
+      description: File attachments to the task.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    id:
+      type: string
+      description: The ID of the comment.
+      examples:
+        - 23051905593794H788S9
+  x-tags:
+    - TaskComment
+PutTaskCommentParam:
+  type: object
+  title: PutTaskCommentParam
+  properties:
+    assets:
+      type: array
+      description: File attachments to the task.
+      items:
+        $ref: '#/ExternalAssetInfo'
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    content:
+      type: string
+      description: The content of the comment.
+      examples:
+        - This is a comment.
+    external_asset_type:
+      enum:
+        - google_drive
+        - gcp_storage
+      description: |-
+        The storage type of the attached file.
+        - `google_drive`: Google Drive files.
+        - `gcp_storage`: All other types of files.
+    id:
+      type: string
+      description: The ID of the comment to edit.
+      examples:
+        - '19081502534611123'
+  required:
+    - content
+    - id
+  x-tags:
+    - TaskComment
+PutTaskCommentResponse:
+  type: object
+  title: PutTaskCommentResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    taskComment:
+      $ref: '#/TaskCommentResponse'
+  x-tags:
+    - TaskComment
+GetContentsResponse:
+  type: object
+  title: GetContentsResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    contents:
+      $ref: '#/Contents'
+  x-tags:
+    - DirectMessage
+Contents:
+  type: object
+  title: Contents
+  description: An object wrapping a Swit resource.
+  properties:
+    attachments:
+      $ref: '#/Attachments'
+    body_blockskit:
+      type: object
+      description: An object representing the content of the post in rich text.
+      examples:
+        - elements:
+            - elements:
+                - content: This is a message.
+                  type: rt_text
+              type: rt_section
+          type: rich_text
+    body_text:
+      type: string
+      description: The content of the post in plaintext.
+      examples:
+        - Hi  <@channel>
+    child_cnt:
+      type: integer
+      description: The number of the comments added to the post.
+      examples:
+        - 3
+    contents_id:
+      type: string
+      description: The ID of the post.
+      examples:
+        - f23b95a423d12cbadfcc211cf9441a6b
+    contents_type:
+      type: string
+      description: |-
+        The type of the post.
+        - `chat`: Message or chat message
+        - `cmt`: Comment
+        - `system`: System message
+      examples:
+        - chat
+    created:
+      type: string
+      description: The date and time at which the post was created.
+      examples:
+        - '2021-11-05T05:28:19.498530457Z'
+    is_bookmark:
+      type: boolean
+      description: Whether or not the post is bookmarked.
+      examples:
+        - false
+    is_delete:
+      type: boolean
+      description: Whether or not the post has been deleted.
+      examples:
+        - false
+    is_pin:
+      type: boolean
+      description: Whether or not the post is pinned.
+      examples:
+        - false
+    modified:
+      type: string
+      description: The date and time at which the request was last edited.
+      examples:
+        - '2021-11-15T07:00:29.826312711Z'
+    offset:
+      type: string
+      description: The ID of the entry last returned by the previous call.
+      examples:
+        - 4ed761ba080a4489a86077a9d3b7ffcl
+    parent_id:
+      type: string
+      description: "When the current post is a comment on another post, this parameter indicates the main post's ID."
+      examples:
+        - a43e3575aaef55b9b4cacf9f7d283c19
+    properties:
+      type: object
+      description: The client information.
+      properties:
+        client_id:
+          type: string
+          description: The ID of the client.
+          examples:
+            - 37da0ade-67f3-4bf7-9c4d-fc3b4c285918
+        is_outcome:
+          type: boolean
+          description: Whether the message is an announcement.
+          default: false
+    reactions:
+      type: array
+      description: Emoji reactions that have been added to the post.
+      items:
+        $ref: '#/ReactionInfo'
+    room_id:
+      type: string
+      description: The ID of the chat that contains the post.
+      examples:
+        - f27c95a387d14cacbfbb209cf9451a6a
+    share_data:
+      type: object
+      description: 5_274_bfd'
+      x-deprecated: true
+    user_id:
+      type: string
+      description: The ID of the user who created the post.
+      examples:
+        - 210345045640BupYNgD
+  x-tags:
+    - DirectMessage
+ReactionInfo:
+  type: object
+  title: ReactionInfo
+  properties:
+    count:
+      type: integer
+      description: The number of reactions using the emoji.
+      examples:
+        - 1
+    users:
+      type: array
+      description: The people who reacted using the emoji.
+      examples:
+        - - 1908210134210XIiU3W
+      items:
+        type: string
+    value:
+      type: string
+      description: The name of the emoji.
+      examples:
+        - ':grinning:'
+  x-tags:
+    - DirectMessage
+GetContentsListResponse:
+  type: object
+  title: GetContentsListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    contents:
+      type: array
+      description: Details of each post retrieved.
+      items:
+        $ref: '#/Contents'
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+  x-tags:
+    - DirectMessage
+CreateContentsParam:
+  type: object
+  title: CreateContentsParam
+  properties:
+    assets:
+      type: array
+      description: The ID of the attachment to include in the post.
+      items:
+        type: string
+        examples:
+          - 9fga2f871d164cf08f1c6353c159203c
+    body:
+      type: string
+      description: "The content of the post. If `body_type=json_string` is passed, it must be a string converted from a JSON object representing a rich-formatted text *(We'll add guidelines on how to construct a rich-text object soon)*."
+      examples:
+        - This is a message.
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    parent_id:
+      type: string
+      description: Pass the main post's ID if you're to add a comment to a main post.
+      examples:
+        - 757e01165f9c2345b3bc12d4f681eece
+    room_id:
+      type: string
+      description: The ID of the chat where to create the post.
+      examples:
+        - 57c53edc06d34beabab209d2e2dfedca
+  required:
+    - room_id
+  x-tags:
+    - DirectMessage
+CreateContentsResponse:
+  type: object
+  title: CreateContentsResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    contents:
+      $ref: '#/Contents'
+  x-tags:
+    - DirectMessage
+UpdateContentsParam:
+  type: object
+  title: UpdateContentsParam
+  properties:
+    body:
+      type: string
+      description: "The content of the post. If `body_type=json_string` is passed, it must be a string converted from a JSON object representing a rich-formatted text *(We'll add guidelines on how to construct a rich-text object soon)*."
+      examples:
+        - This is an edited message.
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    contents_id:
+      type: string
+      description: The ID of the post.
+      examples:
+        - f23b95a423d12cbadfcc211cf9441a6b
+    room_id:
+      type: string
+      description: The ID of the chat that contains the post.
+      examples:
+        - f27c95a387d14cacbfbb209cf9451a6a
+  required:
+    - contents_id
+    - room_id
+  x-tags:
+    - DirectMessage
+UpdateContentsResponse:
+  type: object
+  title: UpdateContentsResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    contents:
+      $ref: '#/Contents'
+  x-tags:
+    - DirectMessage
+DeleteContentsParam:
+  type: object
+  title: DeleteContentsParam
+  properties:
+    contents_id:
+      type: string
+      description: The ID of the post to delete.
+      examples:
+        - f23b95a423d12cbadfcc211cf9441a6b
+    room_id:
+      type: string
+      description: The ID of the chat that contains the post.
+      examples:
+        - f27c95a387d14cacbfbb209cf9451a6a
+  required:
+    - contents_id
+    - room_id
+  x-tags:
+    - DirectMessage
+DeleteContentsResponse:
+  type: object
+  title: DeleteContentsResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    contents_id:
+      type: string
+      description: The ID of the post.
+      examples:
+        - f23b95a423d12cbadfcc211cf9441a6b
+  x-tags:
+    - DirectMessage
+GetRoomResponse:
+  type: object
+  title: GetRoomResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    room:
+      $ref: '#/Room'
+  x-tags:
+    - Conversation
+Room:
+  type: object
+  title: Room
+  description: The properties of a chat.
+  properties:
+    contents:
+      $ref: '#/Contents'
+    created:
+      type: string
+      description: The date and time at which the chat was created.
+      examples:
+        - '2021-11-05T05:35:12.132037571Z'
+    direct_user_id:
+      type: string
+      description: 'ID of the other user in the 1:1 chat. Only used when the response contains `room_type=direct message`.'
+      examples:
+        - 210812024837TPzs5dx
+    is_hidden:
+      type: boolean
+      description: Whether or not the chat is hidden by the user.
+      examples:
+        - false
+    is_starred:
+      type: boolean
+      description: Whether or not the post is starred.
+      examples:
+        - false
+    last_read:
+      type: string
+      description: The date and time at which the user last read the content in the chat.
+      examples:
+        - '2021-11-05T07:23:65.322037456Z'
+    member_count:
+      type: integer
+      description: The number of the members of the chat.
+      examples:
+        - 2
+    members:
+      type: array
+      description: The IDs of the users who are in the chat.
+      examples:
+        - - 211012345140tFASxVA
+          - 211012345040G3HK5b4
+      items:
+        type: string
+    push_type:
+      type: string
+      description: |-
+        The push notification preference set for this chat.
+        - `everything`: Receive push notifications for all relevant events.
+        - `mentions`: Receive push notifications for mentions relevant to the user.
+        - `nothing`: Do not receive push notifications.
+      examples:
+        - everything
+    room_id:
+      type: string
+      description: The ID of the chat.
+      examples:
+        - f27c95a387d14cacbfbb209cf9451a6a
+    room_name:
+      type: string
+      description: The name of the chat visible to the user.
+      examples:
+        - Conversation with my team
+    room_type:
+      type: string
+      description: |-
+        The type of the chat.
+        - `group message`: Group chat
+        - `direct message`: 1:1 chat
+      examples:
+        - direct message
+    status:
+      type: string
+      description: Whether or not the chat is active.
+      examples:
+        - active
+    unread_count:
+      type: integer
+      description: The number of the messages the user has not read.
+      examples:
+        - 1
+  x-tags:
+    - Conversation
+GetRoomListResponse:
+  type: object
+  title: GetRoomListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+    rooms:
+      type: array
+      description: Details of each chat retrieved.
+      items:
+        $ref: '#/Room'
+  x-tags:
+    - Conversation
+CreateRoomParam:
+  type: object
+  title: CreateRoomParam
+  properties:
+    invite_users:
+      type: array
+      description: The members to invite to the chat.
+      examples:
+        - - 211012345140tFASxVA
+          - 211012345040G3HK5b4
+      items:
+        type: string
+  required:
+    - invite_users
+  x-tags:
+    - Conversation
+CreateRoomResponse:
+  type: object
+  title: CreateRoomResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    room:
+      $ref: '#/Room'
+  x-tags:
+    - Conversation
+UpdateRoomParam:
+  type: object
+  title: UpdateRoomParam
+  properties:
+    name:
+      type: string
+      description: The name of the chat that will be visible to the user.
+      examples:
+        - Conversation with my team
+    room_id:
+      type: string
+      description: The ID of the chat.
+      examples:
+        - f27c95a387d14cacbfbb209cf9451a6a
+  required:
+    - name
+    - room_id
+  x-tags:
+    - Conversation
+UpdateRoomResponse:
+  type: object
+  title: UpdateRoomResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    room:
+      $ref: '#/Room'
+  x-tags:
+    - Conversation
+LeaveRoomParam:
+  type: object
+  title: LeaveRoomParam
+  properties:
+    room_id:
+      type: string
+      description: The ID of the chat.
+      examples:
+        - f27c95a387d14cacbfbb209cf9451a6a
+  required:
+    - room_id
+  x-tags:
+    - Conversation
+LeaveRoomResponse:
+  type: object
+  title: LeaveRoomResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    room_id:
+      type: string
+      description: The ID of the chat.
+      examples:
+        - f27c95a387d14cacbfbb209cf9451a6a
+  x-tags:
+    - Conversation
+InviteRoomParam:
+  type: object
+  title: InviteRoomParam
+  properties:
+    invite_users:
+      type: array
+      description: The IDs of the users to invite.
+      examples:
+        - - 211012345140tFASxVA
+          - 211012345040G3HK5b4
+      items:
+        type: string
+    room_id:
+      type: string
+      description: The ID of the chat.
+      examples:
+        - f27c95a387d14cacbfbb209cf9451a6a
+  required:
+    - invite_users
+    - room_id
+  x-tags:
+    - Conversation
+InviteRoomResponse:
+  type: object
+  title: InviteRoomResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    room:
+      $ref: '#/Room'
+  x-tags:
+    - Conversation
+GetCustomFieldListResponse:
+  type: object
+  title: GetCustomFieldListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    custom_fields:
+      type: array
+      description: Details of each custom field retrieved.
+      items:
+        $ref: '#/CustomField'
+  x-tags:
+    - CustomField
+CustomField:
+  type: object
+  title: CustomField
+  description: The properties of a custom field.
+  properties:
+    cmp_id:
+      type: string
+      description: The ID of the organization.
+      examples:
+        - '19065611325634561'
+    created:
+      type: string
+      description: The date and time at which the custom field was created.
+      examples:
+        - '2022-04-15T05:13:48.713593Z'
+    custom_field_id:
+      type: string
+      description: The ID of the custom field.
+      examples:
+        - 220478011220RvcEaXB
+    custom_field_options:
+      type: array
+      description: Array of selections if the field type is dropdown (`field_type=OPTION`).
+      items:
+        $ref: '#/CustomFieldOption'
+    description:
+      type: string
+      description: The placeholder for the custom field if the field type is text (`field_type=STRING`) or URL (`field_type=URL`).
+      examples:
+        - Write something.
+    edit_role:
+      enum:
+        - ADMIN
+        - MEMBER
+      description: |-
+        Who can update the field's value:
+        - `ADMIN`: The organization's admins can update the field's value for each member.
+        - `MEMBER`: Each member can update the field's value for their own profile.
+      examples:
+        - ADMIN
+    enabled:
+      type: boolean
+      description: Whether the field is set to be displayed on user profiles.
+      examples:
+        - true
+    field_domain:
+      const: USER
+      description: The type of custom fields used.
+    field_name:
+      type: string
+      description: The name of the custom field.
+      examples:
+        - Work type
+    field_type:
+      enum:
+        - STRING
+        - URL
+        - OPTION
+      description: 'The type of the custom field: `STRING`, `URL`, or `OPTION` (dropdown).'
+      examples:
+        - URL
+    modified:
+      type: string
+      description: The date and time at which the custom field was last updated.
+      examples:
+        - '2022-04-16T03:12:22.12345Z'
+  x-tags:
+    - CustomField
+CustomFieldOption:
+  type: object
+  title: CustomFieldOption
+  properties:
+    created:
+      type: string
+      description: The date and time at which the dropdown selection was created.
+      examples:
+        - '2022-04-15T02:22:32.44444Z'
+    custom_field_id:
+      type: string
+      description: The ID of the dropdown field that contains this selection.
+      examples:
+        - 220478011220RvcEaXB
+    custom_field_option_id:
+      type: string
+      description: The ID of the dropdown selection.
+      examples:
+        - 220509123480GqLyfoB
+    modified:
+      type: string
+      description: The date and time at which the dropdown selection was created.
+      examples:
+        - '2022-04-15T02:22:52.13322Z'
+    option_name:
+      type: string
+      description: The name of the dropdown selection.
+      examples:
+        - Remote
+  x-tags:
+    - CustomField
+AddCustomFieldParam:
+  type: object
+  title: AddCustomFieldParam
+  properties:
+    custom_field_elements:
+      type: array
+      description: Array of selections if the field type is dropdown (`field_type=OPTION`).
+      items:
+        $ref: '#/CustomFieldOptionElement'
+    description:
+      type: string
+      description: The placeholder for the custom field if the field type is text (`field_type=STRING`) or URL (`field_type=URL`).
+      examples:
+        - Write something.
+    edit_role:
+      enum:
+        - ADMIN
+        - MEMBER
+      description: |-
+        Who can update the field's value:
+        - `ADMIN`: The organization's admins can update the field's value for each member.
+        - `MEMBER`: Each member can update the field's value for their own profile.
+      examples:
+        - ADMIN
+    enabled:
+      type: boolean
+      description: Whether to display the field on user profiles. Up to five fields can be set to be displayed.
+      examples:
+        - true
+    field_name:
+      type: string
+      description: The name of the custom field.
+      examples:
+        - Work type
+    field_type:
+      enum:
+        - STRING
+        - URL
+        - OPTION
+      description: 'Type of the custom field: `STRING`, `URL`, or `OPTION` (dropdown).'
+      examples:
+        - OPTION
+  required:
+    - edit_role
+    - enabled
+    - field_name
+    - field_type
+  x-tags:
+    - CustomField
+CustomFieldOptionElement:
+  type: object
+  title: CustomFieldOptionElement
+  properties:
+    option_name:
+      enum:
+        - STRING
+        - URL
+        - OPTION
+      description: The name of the dropdown selection.
+      examples:
+        - URL
+  required:
+    - option_name
+  x-tags:
+    - CustomField
+AddCustomFieldResponse:
+  type: object
+  title: AddCustomFieldResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    custom_field:
+      $ref: '#/CustomField'
+  x-tags:
+    - CustomField
+DeleteCustomFieldParam:
+  type: object
+  title: DeleteCustomFieldParam
+  properties:
+    custom_field_id:
+      type: string
+      description: The ID of the custom field to delete.
+      examples:
+        - 220478011220RvcEaXB
+  required:
+    - custom_field_id
+  x-tags:
+    - CustomField
+DeleteCustomFieldResponse:
+  type: object
+  title: DeleteCustomFieldResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    custom_field_id:
+      type: string
+      description: The ID of the deleted custom field.
+      examples:
+        - 220478011220RvcEaXB
+  x-tags:
+    - CustomField
+UpdateCustomFieldParam:
+  type: object
+  title: UpdateCustomFieldParam
+  properties:
+    custom_field_id:
+      type: string
+      description: The ID of the custom field to update.
+      examples:
+        - 220478011220RvcEaXB
+    edit_role:
+      enum:
+        - ADMIN
+        - MEMBER
+      description: |-
+        Who can update the field's value on individual members' user profiles.
+        - `ADMIN`: Admins can update the field's value on any member's profile.
+        - `MEMBER`: Members can update the field's value on their own profile.
+      examples:
+        - ADMIN
+    enabled:
+      type: boolean
+      description: Whether to display the field on user profiles. Up to five fields can be set to be displayed.
+      examples:
+        - true
+  required:
+    - custom_field_id
+  x-tags:
+    - CustomField
+UpdateCustomFieldResponse:
+  type: object
+  title: UpdateCustomFieldResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    custom_field:
+      $ref: '#/CustomField'
+  x-tags:
+    - CustomField
+GetUserCustomFieldListResponse:
+  type: object
+  title: GetUserCustomFieldListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    joined_custom_fields:
+      type: array
+      description: Details of each custom field assigned for the user.
+      items:
+        $ref: '#/JoinedCustomField'
+  x-tags:
+    - CustomField
+JoinedCustomField:
+  type: object
+  title: JoinedCustomField
+  properties:
+    custom_field:
+      $ref: '#/CustomField'
+    custom_field_user_data:
+      $ref: '#/CustomFieldUserData'
+  x-tags:
+    - CustomField
+CustomFieldUserData:
+  type: object
+  title: CustomFieldUserData
+  description: An object wrapping a Swit resource.
+  properties:
+    created:
+      type: string
+      description: The date and time at which the custom field's value was initially assigned for the user.
+      examples:
+        - '2022-04-15T02:22:32.44444Z'
+    custom_field_id:
+      type: string
+      description: The ID of the custom field.
+      examples:
+        - 220478011220RvcEaXB
+    custom_field_user_data_id:
+      type: string
+      description: 'The ID of the custom field data assigned for the user. Once created, it will remain unchanged even if the value is updated later.'
+      examples:
+        - 220509123480GqLyfoB
+    data_value:
+      type: string
+      description: The custom field value assigned for the user.
+      examples:
+        - Remote
+    enabled:
+      type: boolean
+      description: Whether the custom field is used for this user.
+      examples:
+        - true
+    modified:
+      type: string
+      description: The date and time at which the custom field value was last updated.
+      examples:
+        - '2022-04-15T02:22:52.13322Z'
+    user_id:
+      type: string
+      description: The ID of the user.
+      examples:
+        - 1908210134210XIiU3W
+  x-tags:
+    - CustomField
+UpdateUserCustomFieldParam:
+  type: object
+  title: UpdateUserCustomFieldParam
+  properties:
+    custom_field_user_data_elements:
+      type: array
+      description: Array of custom field objects to update for the selected user.
+      items:
+        $ref: '#/CustomFieldUserDataElement'
+    update_fields:
+      type: array
+      description: The fields to update.
+      items:
+        enum:
+          - data_value
+          - enabled
+    user_id:
+      type: string
+      description: The ID of the user to update with the selected custom fields.
+      examples:
+        - 1908210134210XIiU3W
+  required:
+    - custom_field_user_data_elements
+    - user_id
+  x-tags:
+    - CustomField
+CustomFieldUserDataElement:
+  type: object
+  title: CustomFieldUserDataElement
+  properties:
+    custom_field_id:
+      type: string
+      description: The ID of the target custom field.
+      examples:
+        - 220478011220RvcEaXB
+    data_value:
+      type: string
+      description: The value of the custom field to assign for the user.
+      examples:
+        - Remote
+    enabled:
+      type: boolean
+      description: Whether to user the custom field for the user.
+      examples:
+        - true
+  required:
+    - custom_field_id
+  x-tags:
+    - CustomField
+UpdateUserCustomFieldResponse:
+  type: object
+  title: UpdateUserCustomFieldResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    custom_field_ids:
+      type: array
+      description: Array of the custom fields updated for the user.
+      items:
+        $ref: '#/CustomFieldIds'
+  x-tags:
+    - CustomField
+CustomFieldIds:
+  type: object
+  title: CustomFields
+  properties:
+    custom_field_id:
+      type: string
+      description: The ID of the custom field.
+      examples:
+        - 220478011220RvcEaXB
+    custom_field_user_data_id:
+      type: string
+      description: The ID of the user updated with the selected custom field.
+      examples:
+        - 220509123480GqLyfoB
+  x-tags:
+    - CustomField
+CreateApprovalParam:
+  type: object
+  title: CreateApprovalParam
+  properties:
+    approval_category_id:
+      type: string
+      description: The ID of the template used.
+      examples:
+        - 139gj12p3o9gwrogn94
+    approvers:
+      type: array
+      description: Approvers for each level.
+      items:
+        $ref: '#/Approvers'
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    contents:
+      type: string
+      description: 'The content of the request. If `body_type=json_string` is passed, it must be a string converted from a JSON object representing a rich-formatted text (We’ll add guidelines on how to construct a rich-text object soon).'
+      examples:
+        - contents
+    html_content:
+      type: string
+      description: HTML content that will be attached to the request. Note that only the inline `style` attribute is allowed for each individual element and the `<style>` tag is not supported here.
+      examples:
+        - <body><div></div></body>
+    is_public:
+      type: integer
+      description: |-
+        To whom this request is to be circulated after approved.
+        - `0`: None
+        - `1`: The submitter's teams
+        - `2`: The approvers' teams
+        - `3`: Both the submitter's & approvers' teams
+      examples:
+        - 1
+    referrer_teams:
+      type: array
+      description: The IDs of the recipient teams.
+      examples:
+        - - 201103015310ImIqLWY
+          - 220127051250T3AfDYo
+      items:
+        type: string
+    referrers:
+      type: array
+      description: The user IDs who're CC'd to the request.
+      examples:
+        - - 1907070715193FXPDT
+          - 202201010410mWrxpRT
+      items:
+        type: string
+    title:
+      type: string
+      description: The title of the request.
+      examples:
+        - A new project plan
+  required:
+    - contents
+    - title
+  x-tags:
+    - Approval
+Approvers:
+  type: object
+  title: Approvers
+  properties:
+    approver_ids:
+      type: array
+      description: The user IDs of the approvers.
+      examples:
+        - - 1908210134210XIiU3W
+          - 220327051250T3AfDDu
+      items:
+        type: string
+    step:
+      type: integer
+      description: The level of approval.
+      examples:
+        - 1
+    step_condition:
+      type: integer
+      description: |-
+        - `0`: Any approver can approver to pass the current approval level.
+        - `1`: Every approver must approve to pass the current approval level.
+      examples:
+        - 0
+  x-tags:
+    - Approval
+CreateApprovalResponse:
+  type: object
+  title: CreateApprovalResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    action_user_id:
+      type: string
+      description: The approver who approved or rejected the request.
+      examples:
+        - 1908210134210XIiU3W
+    approval_category_id:
+      type: string
+      description: The ID of the template used.
+      examples:
+        - 211018034560kSKpPY2
+    approval_category_name:
+      type: string
+      description: The name of the template used.
+      examples:
+        - Expense reimbursement
+    approval_cont_id:
+      type: string
+      description: The ID of the content of a request.
+      examples:
+        - 21082101510505XRLEBS
+    approval_id:
+      type: string
+      description: The ID of the request.
+      examples:
+        - 211125023460BnRasIX
+    approval_status:
+      type: integer
+      description: |-
+        Status of the request.
+        - `0`: Drafted
+        - `1`: Waiting for approval
+        - `2`: Approved
+        - `3`: Declined
+      examples:
+        - 1
+    approval_url:
+      type: string
+      description: URL of the request.
+      examples:
+        - 'https://app.swit.io/group/swit-home/approvals/list?approval_detail=210827081080b4YrFnC'
+    approve_condition:
+      type: integer
+      description: |-
+        The condition for the request to be processed to the next level.
+        - `0`: Any approver can approve
+        - `1`: Every approver must approve
+      examples:
+        - 0
+    asset_data:
+      type: array
+      description: List of data attachments to the request.
+      items:
+        $ref: '#/Asset'
+    body_blockskit:
+      type: string
+      description: An object representing the content of the post in rich text.
+      examples:
+        - '"{\"type\":\"rich_text\",\"elements\":[{\"type\":\"rt_section\",\"elements\":[{\"type\":\"rt_text\",\"content\":\"Content is here.\",\"styles\":{\"bold\":true}}]}]}'
+    body_text:
+      type: string
+      description: The content of the post in plaintext.
+      examples:
+        - Please review this plan.
+    cmp_id:
+      type: string
+      description: The ID of the organization.
+      examples:
+        - '19065611325634561'
+    completed_step:
+      type: integer
+      description: The highest level of approval that has been processed so far.
+      examples:
+        - 0
+    created:
+      type: string
+      description: The date and time at which the request was created.
+      examples:
+        - '2021-11-05T05:28:19.498530457Z'
+    doc_id:
+      type: string
+      description: Request ID displayed to users. It's used for display purposes while `approval_id` is for programming use.
+      examples:
+        - 2021-0000000154
+    html_content:
+      type: string
+      description: HTML content attached to the request.
+      examples:
+        - <div>html <b>content</b></div>
+    is_bookmarked:
+      type: integer
+      description: Whether or not the request is bookmarked by the user.
+      examples:
+        - 0
+    is_html_editable:
+      type: integer
+      description: 5_278_bfg'
+    is_public:
+      type: integer
+      description: |-
+        To whom this request is to be circulated after approved.
+        - `0`: None
+        - `1`: The submitter's teams
+        - `2`: The approvers' teams
+        - `3`: Both the submitter's & approvers' teams
+      examples:
+        - 1
+    modified:
+      type: string
+      description: The date and time at which the request was last edited.
+      examples:
+        - '2021-11-15T04:58:03Z'
+    referrer_teams:
+      type: array
+      description: The IDs of the recipient teams.
+      examples:
+        - - 201103015310ImIqLWY
+          - 220127051250T3AfDYo
+      items:
+        type: string
+    referrers:
+      type: array
+      description: Users who're CC'd to the request.
+      items:
+        $ref: '#/Referrer'
+    req_user_id:
+      type: string
+      description: The ID of the user who created the request.
+      examples:
+        - 1908210134210XIiU3W
+    requested:
+      type: string
+      description: The date and time at which the request was submitted.
+      examples:
+        - '2021-11-07T07:12:54.125412423Z'
+    step_approvers:
+      type: array
+      description: Approvers for each level.
+      items:
+        $ref: '#/StepListOfApprovers'
+    step_count:
+      type: integer
+      description: The total number of approval levels.
+      examples:
+        - 2
+    substitute:
+      type: array
+      description: Proxy approval status.
+      items:
+        $ref: '#/Substitute'
+    title:
+      type: string
+      description: The title of the request.
+      examples:
+        - A new project plan
+  x-tags:
+    - Approval
+Asset:
+  type: object
+  title: Asset
+  properties:
+    approval_asset_id:
+      type: string
+      description: The ID of the file.
+      examples:
+        - 544b74ca12c345f4a431012cf0a466d0
+    approval_cont_id:
+      type: string
+      description: The ID of the content of the request.
+      examples:
+        - 48032101474531F5H499
+    approval_id:
+      type: string
+      description: The ID of the request to which this file is attached.
+      examples:
+        - 211125023460BnRasIX
+    created:
+      type: string
+      description: The date and time at which the file was uploaded.
+      examples:
+        - '2021-11-05T05:21:11.498520443Z'
+    file_desc:
+      type: string
+      description: Description on the file.
+      examples:
+        - This is my image file.
+    file_mime:
+      type: string
+      description: MIME type of the file.
+      examples:
+        - image
+    file_name:
+      type: string
+      description: The name of the file.
+      examples:
+        - image.png
+    file_path:
+      type: string
+      description: The URL path of the file.
+      examples:
+        - /company/19090600325673321/544c74be12c234f4a431047cf0a466d0/211115054812i922AxO.png
+    file_size:
+      type: integer
+      description: The size of the file in bytes.
+      examples:
+        - 40116
+    image_x:
+      type: integer
+      description: The image's width.
+      examples:
+        - 630
+    image_y:
+      type: integer
+      description: The image's height.
+      examples:
+        - 234
+    thumbnail:
+      type: string
+      description: The Thumbnail URL of the file.
+      examples:
+        - /company/19090600325673321/544c74be12c234f4a431047cf0a466d0/211115054812i922AxO_SWIT512.png
+    user_id:
+      type: string
+      description: The ID of the user who uploaded the file.
+      examples:
+        - '19081502534623670'
+  x-tags:
+    - Approval
+Referrer:
+  type: object
+  title: Referrer
+  properties:
+    referrer_user_id:
+      type: string
+      description: The user ID CC'd to the request.
+      examples:
+        - '19081502534623670'
+    register_type:
+      type: integer
+      description: |-
+        How the user was CC'd.
+        - `0`: Automatically added as a CC recipient because somebody else is acting as a proxy approver for this user.
+        - `1`: The submitter added this user as a CC recipient.
+      examples:
+        - 1
+  x-tags:
+    - Approval
+StepListOfApprovers:
+  type: object
+  title: StepListOfApprovers
+  properties:
+    approvers:
+      type: array
+      description: List of approvers at this level.
+      items:
+        $ref: '#/Approver'
+    step:
+      type: integer
+      description: The level of approval.
+      examples:
+        - 1
+    step_condition:
+      type: integer
+      description: |-
+        - `0`: Any approver can approver to pass the current approval level.
+        - `1`: Every approver must approve to pass the current approval level.
+      examples:
+        - 0
+    step_status:
+      type: integer
+      description: |-
+        Approval status at this level.
+        - `1`: Waiting for approval
+        - `2`: Approved
+        - `3`: Declined
+      examples:
+        - 1
+  x-tags:
+    - Approval
+Approver:
+  type: object
+  title: Approver
+  properties:
+    action_date:
+      type: string
+      description: The date and time at which the approver approved or declined the request at this level.
+      examples:
+        - '2022-04-15T05:13:48.713593Z'
+    approver_status:
+      type: integer
+      description: |-
+        The approver's status.
+        - `1`: Being requested for approval
+        - `2`: Approved the request.
+        - `3`: Declined the request.
+        - `4`: The request was processed at this level by another approver.
+      examples:
+        - 1
+    approver_user_id:
+      type: string
+      description: The user ID of the approver.
+      examples:
+        - 1908210134210XIiU3W
+    step:
+      type: integer
+      description: The level of approval.
+      examples:
+        - 1
+  x-tags:
+    - Approval
+Substitute:
+  type: object
+  title: Substitute
+  properties:
+    substitute_user_id:
+      type: string
+      description: The ID of the user who're designated as the proxy approver.
+      examples:
+        - 1908210134210XIiU3W
+    target_user_id:
+      type: string
+      description: The ID of the user who designated the proxy approver.
+      examples:
+        - 1908210134210XIiU3W
+  x-tags:
+    - Approval
+ApprovalListResponse:
+  type: object
+  title: ApprovalListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    approvals:
+      type: array
+      description: Details of each request retrieved.
+      items:
+        $ref: '#/GetApprovalListResponse'
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+  x-tags:
+    - Approval
+GetApprovalListResponse:
+  type: object
+  title: GetApprovalListResponse
+  properties:
+    approval_category_id:
+      type: string
+      description: The ID of the template used.
+      examples:
+        - 1908222367210XIiU3W
+    approval_category_name:
+      type: string
+      description: The name of the template used.
+      examples:
+        - category name
+    approval_id:
+      type: string
+      description: The ID of the request.
+      examples:
+        - 1908222367210XIiU3W
+    approval_status:
+      type: integer
+      description: |-
+        Status of the request.
+        - `0`: Drafted
+        - `1`: Waiting for approval
+        - `2`: Approved
+        - `3`: Declined
+      examples:
+        - 1
+    comment_count:
+      type: integer
+      description: The number of comments added.
+      examples:
+        - 3
+    created:
+      type: string
+      description: The date and time at which the request was created.
+      examples:
+        - '2020-03-14T05:00:07Z'
+    doc_id:
+      type: string
+      description: Request ID displayed to users. It's used for display purposes while `approval_id` is for programming use.
+      examples:
+        - 2021-0000000001
+    is_bookmarked:
+      type: integer
+      description: Whether or not the request is bookmarked by the user.
+      examples:
+        - 0
+    is_public:
+      type: integer
+      description: |-
+        To whom this request is to be circulated after approved.
+        - `0`: None
+        - `1`: The submitter's teams
+        - `2`: The approvers' teams
+        - `3`: Both the submitter's & approvers' teams
+      examples:
+        - 1
+    req_user_id:
+      type: string
+      description: The ID of the user who created the request.
+      examples:
+        - 1908222367210XIiU3W
+    requested:
+      type: string
+      description: The date and time at which the request was submitted.
+      examples:
+        - '2020-03-14T05:00:07Z'
+    step_approvers:
+      type: array
+      description: Approvers for each level.
+      items:
+        $ref: '#/StepListOfApprovers'
+    title:
+      type: string
+      description: The title of the request.
+      examples:
+        - title
+  x-tags:
+    - Approval
+GetApprovalCategoryInfoResponse:
+  type: object
+  title: GetApprovalCategoryInfoResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    approval_category_id:
+      type: string
+      description: The ID of the template.
+      examples:
+        - 211018034560kSKpPY2
+    approval_category_name:
+      type: string
+      description: The name of the template.
+      examples:
+        - Expense reimbursement
+    body_type:
+      enum:
+        - plain
+        - json_string
+      description: |-
+        Whether or not to use rich styles.
+        - `plain`: The `content` value will be parsed as plaintext.
+        - `json_string`: The `content` value will be parsed as an object representing a rich-formatted text.
+      default: plain
+    cmp_id:
+      type: string
+      description: The ID of the organization.
+      examples:
+        - '19065611325634561'
+    contents:
+      type: string
+      description: 'Content of the request. If `body_type=json_string` is passed, it must be a string converted from a JSON object representing a rich-formatted text (We’ll add guidelines on how to construct a rich-text object soon).'
+      examples:
+        - Please review this plan.
+    created:
+      type: string
+      description: The date and time at which the template was created.
+      examples:
+        - '2021-11-05T05:28:19.498530457Z'
+    is_public:
+      type: integer
+      description: |-
+        To whom this request is to be circulated after approved.
+        - `0`: None
+        - `1`: The submitter's teams
+        - `2`: The approvers' teams
+        - `3`: Both the submitter's & approvers' teams
+      examples:
+        - 1
+    referrer_teams:
+      type: array
+      description: The IDs of the recipient teams.
+      examples:
+        - - 201103015310ImIqLWY
+          - 220329051250T3BfDDu
+      items:
+        type: string
+    referrers:
+      type: array
+      description: The user IDs who're CC'd to the request.
+      examples:
+        - - 1911070715193IHLKX
+          - 2006180101103cUikk5
+      items:
+        type: string
+    req_user_id:
+      type: string
+      description: The ID of the user who created the request.
+      examples:
+        - 1908210134210XIiU3W
+    step_approvers:
+      type: array
+      description: Approvers for each level.
+      items:
+        $ref: '#/Approvers'
+    title:
+      type: string
+      description: The title of the request.
+      examples:
+        - A new project plan
+  x-tags:
+    - Approval
+ApprovalCategoryListResponse:
+  type: object
+  title: ApprovalCategoryListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    categories:
+      type: array
+      description: Details of each request template retrieved.
+      items:
+        $ref: '#/GetApprovalCategoryListResponse'
+    offset:
+      type: string
+      description: Offset string that indicates the last entry returned.
+      examples:
+        - MTUzOTg0NTg2NTAwMA
+  x-tags:
+    - Approval
+GetApprovalCategoryListResponse:
+  type: object
+  title: GetApprovalCategoryListResponse
+  properties:
+    approval_category_id:
+      type: string
+      description: The ID of the template used.
+      examples:
+        - 139gj12p3o9gwrogn94
+    approval_category_name:
+      type: string
+      description: The name of the template used.
+      examples:
+        - Expense reimbursement
+    cmp_id:
+      type: string
+      description: The ID of the organization.
+      examples:
+        - '19065611325634561'
+    created:
+      type: string
+      description: The date and time at which the request was created.
+      examples:
+        - '2021-11-05T05:28:19.498530457Z'
+    req_user_id:
+      type: string
+      description: The ID of the user who created the request.
+      examples:
+        - 1908210134210XIiU3W
+  x-tags:
+    - Approval
+GetOrganizationUserListResponse:
+  type: object
+  title: GetOrganizationUserListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    user:
+      type: object
+      properties:
+        user_id:
+          type: string
+          description: The ID of the user.
+          examples:
+            - 220103011810x7bqTRY
+        user_name:
+          type: string
+          description: The name of the user.
+          examples:
+            - Jane Kim
+        email:
+          type: string
+          description: The email of the user.
+          examples:
+            - jane@example.com
+        role:
+          type: integer
+          description: The role of the user.
+          examples:
+            - 20
+        status:
+          enum:
+            - 'on'
+            - 'off'
+          description: The status of the user.
+        created:
+          type: string
+          description: The date and time at which the user's account was created.
+          examples:
+            - '2022-01-03T01:18:43Z'
+        bg_color:
+          type: string
+          description: The background color of the default profile image of the user.
+          examples:
+            - '#00B1B8'
+        is_active:
+          type: boolean
+          description: Whether the user's account is active.
+          default: true
+        language:
+          enum:
+            - en
+            - ko
+          description: The language setting of the user.
+        last_activity:
+          type: string
+          description: The date and time of the user's last activity.
+          examples:
+            - '2023-03-10T06:16:40Z'
+        mode:
+          type: string
+          description: The mode of the user.
+          examples:
+            - sth
+        msg:
+          type: string
+          description: The status message of the user.
+          examples:
+            - Working from home
+        photo:
+          type: string
+          description: The user's profile image link.
+          examples:
+            - /profile/2104150006120VwHUYec/OBK6ln3mpZq6JRifDPdQTyHHg9826kCQ_th_500.jpg
+        team:
+          type: array
+          description: The team the user is in.
+          items:
+            $ref: '#/TeamUser'
+        tel:
+          type: string
+          description: The telephone number of the user.
+          examples:
+            - +82-10-1234-5678
+        timezone:
+          type: string
+          description: The timezone of the user.
+          examples:
+            - Asia/Seoul
+        timezone_auto_flag:
+          enum:
+            - 1
+            - 2
+          description: Whether to make the timezone setting automatically based on the user location or follow the user setting.
+          examples:
+            - 1
+  x-tags:
+    - Membership
+TeamUser:
+  type: object
+  title: TeamUser
+  properties:
+    created:
+      type: string
+      description: The date and time the team was created.
+      examples:
+        - '2022-01-03T01:18:43Z'
+    main_dept_yn:
+      type: string
+      description: The main department the user is in.
+      examples:
+        - Sales & Marketing
+    team_id:
+      type: string
+      description: The ID of the team.
+      examples:
+        - 200103015310ImIqLWZ
+    team_name:
+      type: string
+      description: The name of the team.
+      examples:
+        - Marketing
+  x-tags:
+    - Team
+AddCompanyUserListParam:
+  type: object
+  title: AddCompanyUserListParam
+  properties:
+    new_users:
+      type: array
+      description: The properties of new guests.
+      items:
+        $ref: '#/AddCompanyUserParam'
+    role:
+      type: integer
+      description: The role of the user.
+      examples:
+        - 0
+  required:
+    - new_users
+    - role
+  x-tags:
+    - Membership
+AddCompanyUserParam:
+  type: object
+  title: AddCompanyUserParam
+  properties:
+    language:
+      enum:
+        - en
+        - ko
+      description: The language setting of the user.
+    msg:
+      type: string
+      description: The status message of the user.
+      examples:
+        - Working from home
+    tel:
+      type: string
+      description: The telephone number of the user.
+      examples:
+        - +82-10-1234-5678
+    timezone:
+      type: string
+      description: The timezone of the user.
+      examples:
+        - Asia/Seoul
+    user_email:
+      type: string
+      description: The email of the user.
+      examples:
+        - jane@example.com
+    user_name:
+      type: string
+      description: The name of the user.
+      examples:
+        - Jane Kim
+  required:
+    - user_email
+    - user_name
+  x-tags:
+    - Membership
+DelCompanyUserResponse:
+  type: object
+  title: DelCompanyUserResponse
+  description: An object wrapping a Swit resource.
+  x-tags:
+    - Membership
+GetUserTeamListResponse:
+  type: object
+  title: GetUserTeamListResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    team:
+      type: array
+      description: The properties of a team.
+      items:
+        $ref: '#/Team'
+  x-tags:
+    - Team
+Team:
+  type: object
+  title: Team
+  properties:
+    depth:
+      type: integer
+      description: The depth of the team.
+      examples:
+        - 0
+    id:
+      type: string
+      description: The ID of the team.
+      examples:
+        - 200103015310ImIqLWZ
+    name:
+      type: string
+      description: The name of the team.
+      examples:
+        - Design
+    parent_id:
+      type: string
+      description: The ID of the parent team.
+      examples:
+        - 24567231758btrwFTY
+    reference:
+      type: string
+      description: Custom text to be used as a reference. This is useful to store information from another source.
+      examples:
+        - '145'
+    member_cnt:
+      type: integer
+      description: The count of members.
+      examples:
+        - 250
+    users:
+      type: array
+      description: The list of members in the team.
+      examples:
+        - - 1902060217048ALFTG
+          - 1906060217048FQOXY
+      items:
+        type: string
+  x-tags:
+    - Team
+TeamCreateResponse:
+  type: object
+  title: TeamCreateResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    data:
+      $ref: '#/Team'
+  x-tags:
+    - Team
+TeamUpdateResponse:
+  type: object
+  title: TeamUpdateResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    data:
+      $ref: '#/Team'
+  x-tags:
+    - Team
+TeamDeleteResponse:
+  type: object
+  title: TeamDeleteResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    data:
+      $ref: '#/Team'
+  x-tags:
+    - Team
+TeamSortParam:
+  type: object
+  title: TeamSortParam
+  properties:
+    parent_id:
+      type: string
+      description: The ID of the parent team.
+      examples:
+        - 24567231758btrwFTY
+    team_ids:
+      type: array
+      description: 'The IDs of the teams. A list of all subteams belonging to the parent team, in order listed.'
+      examples:
+        - - 20067231758btrwFTY
+          - 19110568289hyrpWQT
+      items:
+        type: string
+  x-tags:
+    - Team
+TeamUserCreateResponse:
+  type: object
+  title: TeamUserCreateResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    data:
+      $ref: '#/Team'
+  x-tags:
+    - Team
+TeamUserDeleteResponse:
+  type: object
+  title: TeamUserDeleteResponse
+  description: An object wrapping a Swit resource.
+  properties:
+    data:
+      $ref: '#/Team'
+  x-tags:
+    - Team
