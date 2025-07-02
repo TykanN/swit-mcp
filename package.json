@@ -1,6 +1,6 @@
 {
   "name": "swit-mcp",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Swit 협업툴과 연동하는 Model Context Protocol (MCP) 서버",
   "type": "module",
   "main": "dist/index.js",

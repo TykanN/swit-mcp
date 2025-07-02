@@ -735,12 +735,23 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 });
 
 async function main() {
-  // OAuth 초기화
-  await initializeOAuth();
+  try {
+    console.error('Starting MCP server initialization...');
+    
+    // OAuth 초기화
+    console.error('Initializing OAuth...');
+    await initializeOAuth();
+    console.error('OAuth initialization completed');
 
-  // MCP 서버 시작
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
+    // MCP 서버 시작
+    console.error('Starting MCP server transport...');
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    console.error('MCP server connected successfully');
+  } catch (error) {
+    console.error('Error in main():', error);
+    throw error;
+  }
 }
 
 // 프로세스 종료 시 웹서버 정리
@@ -763,9 +774,17 @@ process.on('SIGTERM', async () => {
 // ES 모듈에서는 require.main 대신 import.meta.url 사용
 if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch((error) => {
-    logger.error(
-      'Main 함수 실행 중 오류: ' + (error instanceof Error ? error.message : String(error))
-    );
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const stackTrace = error instanceof Error ? error.stack : '';
+    
+    // MCP 클라이언트가 볼 수 있도록 stderr에 출력
+    console.error('MCP Server startup failed:', errorMessage);
+    console.error('Stack trace:', stackTrace);
+    
+    logger.error('Main 함수 실행 중 오류: ' + errorMessage, { 
+      stack: stackTrace,
+      error: error 
+    });
     process.exit(1);
   });
 }
