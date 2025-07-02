@@ -1,16 +1,16 @@
 {
   "name": "swit-mcp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Swit 협업툴과 연동하는 Model Context Protocol (MCP) 서버",
   "type": "module",
-  "main": "dist/server.js",
+  "main": "dist/index.js",
   "bin": {
-    "swit-mcp": "./dist/cli.js"
+    "swit-mcp": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc && chmod +x dist/cli.js && chmod +x dist/server.js",
-    "dev": "tsx src/server.ts",
-    "start": "node dist/cli.js",
+    "build": "tsc && chmod +x dist/index.js",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
     "test": "jest",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts",
