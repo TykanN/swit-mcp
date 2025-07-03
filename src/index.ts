@@ -76,7 +76,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error('MCP 도구 실행 중 오류 발생:', name, errorMessage);
+    console.error('Error occurred while executing MCP tool:', name, errorMessage);
     return {
       content: [
         {
@@ -97,7 +97,7 @@ async function main() {
   try {
     console.error('Starting MCP server initialization...');
 
-    // OAuth 초기화
+    // OAuth initialization
     console.error('Initializing OAuth...');
     await initializeOAuth();
     console.error('OAuth initialization completed');
@@ -168,6 +168,6 @@ main().catch((error) => {
   console.error('MCP Server startup failed:', errorMessage);
   console.error('Stack trace:', stackTrace);
 
-  console.error('Main 함수 실행 중 오류:', errorMessage, stackTrace);
+  console.error('Error occurred while executing main function:', errorMessage, stackTrace);
   process.exit(1);
 });
