@@ -11,44 +11,19 @@
   <strong>🟦 Swit MCP( Model Context Protocol ) Server 🟧</strong>
 </div>
 
-## 🚀 빠른 시작
+## 🚀 설정 가이드
 
-### Installing Manually
+### 1. Swit Developer Console 앱 등록
 
-```bash
-npx -y swit-mcp
-```
+1. https://developers.swit.io 에서 새 앱 생성
+2. 클라이언트 ID, 시크릿 발급
+3. 리다이렉트 URI: `http://localhost:3000/callback` 설정
 
-## 설정
+### 2. MCP 클라이언트 설정
 
-### OAuth 인증 (권장)
+#### Claude Desktop
 
-1. **Swit Developer Console에서 앱 등록**
-   - https://developers.swit.io 에서 새 앱 생성
-   - 클라이언트 ID, 시크릿 발급
-   - 리다이렉트 URI: `http://localhost:3000/callback` 설정
-
-2. **환경변수 설정**
-   ```bash
-   export SWIT_CLIENT_ID="your-client-id"
-   export SWIT_CLIENT_SECRET="your-client-secret"
-   export OAUTH_PORT="3000"  # 선택사항
-   ```
-
-### Bearer Token 인증 (fallback)
-
-```bash
-export SWIT_API_TOKEN="your-swit-api-token"
-export SWIT_API_BASE_URL="https://openapi.swit.io/v1"  # 선택사항
-```
-
-## 사용법
-
-### MCP 클라이언트 설정
-
-Claude Desktop이나 다른 MCP 클라이언트의 설정 파일에 추가:
-
-#### OAuth 방식 (권장)
+`~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
@@ -65,29 +40,12 @@ Claude Desktop이나 다른 MCP 클라이언트의 설정 파일에 추가:
 }
 ```
 
-#### Bearer Token 방식 (대체)
+### 3. 인증 과정
 
-```json
-{
-  "mcpServers": {
-    "swit": {
-      "command": "npx",
-      "args": ["-y", "swit-mcp"],
-      "env": {
-        "SWIT_API_TOKEN": "your-swit-api-token"
-      }
-    }
-  }
-}
-```
-
-## OAuth 인증 과정
-
-1. MCP 서버 실행 시 OAuth 웹서버가 자동으로 시작됩니다
-2. `swit-oauth-start` 도구를 실행하여 인증 URL을 받습니다
-3. 브라우저에서 해당 URL로 이동하여 Swit 계정으로 로그인합니다
-4. 인증 완료 후 자동으로 토큰이 저장됩니다
-5. `swit-oauth-status` 도구로 인증 상태를 확인할 수 있습니다
+1. Claude Desktop에서 첫 Swit 도구 실행 시 OAuth 웹서버가 자동 시작
+2. `swit-oauth-start` 도구 실행하여 인증 URL 획득
+3. 브라우저에서 Swit 계정으로 로그인
+4. 토큰이 자동으로 저장되며 `swit-oauth-status`로 확인 가능
 
 ## 🛠️ 사용 가능한 도구
 
@@ -105,25 +63,6 @@ Claude Desktop이나 다른 MCP 클라이언트의 설정 파일에 추가:
 
 > 🎯 **활용 예시**: Claude에게 "Swit의 개발팀 채널에 프로젝트 진행 상황을 알려줘"라고 요청하면 자동으로 메시지를 전송할 수 있습니다.
 
-## 개발
-
-```bash
-# 의존성 설치
-pnpm install
-
-# 개발 모드 실행
-pnpm run dev
-
-# 빌드
-pnpm run build
-
-# 테스트
-pnpm test
-
-# CLI 인증 (독립 실행용)
-pnpm run auth
-```
-
 ## 기술 스택
 
 - **MCP SDK**: Model Context Protocol TypeScript SDK
@@ -131,7 +70,3 @@ pnpm run auth
 - **Type Safety**: Zod를 활용한 런타임 타입 검증
 - **Web Server**: OAuth 콜백 처리를 위한 Express 내장 웹서버
 - **Testing**: Jest + Nock을 활용한 HTTP mocking 테스트
-
-```
-
-```
