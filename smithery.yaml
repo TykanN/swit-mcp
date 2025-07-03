@@ -1,0 +1,35 @@
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
+
+startCommand:
+  type: stdio
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({ command: 'node', args: ['dist/index.js'], env: { ...(config.switClientId ? { SWIT_CLIENT_ID: config.switClientId } : {}), ...(config.switClientSecret ? { SWIT_CLIENT_SECRET: config.switClientSecret } : {}), ...(config.switApiToken ? { SWIT_API_TOKEN: config.switApiToken } : {}), ...(config.switApiBaseUrl ? { SWIT_API_BASE_URL: config.switApiBaseUrl } : {}), ...(config.oauthPort ? { OAUTH_PORT: String(config.oauthPort) } : {}) } })
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    properties:
+      switClientId:
+        type: string
+        description: Swit OAuth client ID
+      switClientSecret:
+        type: string
+        description: Swit OAuth client secret
+      switApiToken:
+        type: string
+        description: Swit API bearer token (fallback)
+      switApiBaseUrl:
+        type: string
+        default: https://openapi.swit.io/v1
+        description: Swit API base URL
+      oauthPort:
+        type: number
+        default: 3000
+        description: Port for OAuth callback server
+  exampleConfig:
+    switClientId: your-client-id
+    switClientSecret: your-client-secret
+    switApiToken: your-api-token
+    switApiBaseUrl: https://openapi.swit.io/v1
+    oauthPort: 3000
