@@ -70,3 +70,4 @@
 - **Type Safety**: Zod를 활용한 런타임 타입 검증
 - **Web Server**: OAuth 콜백 처리를 위한 Express 내장 웹서버
 - **Testing**: Jest + Nock을 활용한 HTTP mocking 테스트
+```
