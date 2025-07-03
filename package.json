@@ -1,6 +1,6 @@
 {
   "name": "swit-mcp",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Swit Model Context Protocol Server",
   "homepage": "https://github.com/tykann/swit-mcp",
   "type": "module",
