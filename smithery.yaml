@@ -1,0 +1,60 @@
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
+name: swit-mcp
+description: |
+  [KOR]
+  Swit MCP 서버입니다. Swit API를 활용하여 워크스페이스, 채널, 메시지, 메시지 댓글, 프로젝트를 관리할 수 있습니다.
+
+  [ENG]
+  Swit MCP server. Utilizes Swit API to manage workspaces, channels, messages, message comments, and projects.
+
+author: TykanN
+repository: https://github.com/tykann/swit-mcp
+license: MIT
+
+startCommand:
+  type: stdio
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({ command: 'node', args: ['dist/index.js'], env: { SWIT_CLIENT_ID: config.switClientId, SWIT_CLIENT_SECRET: config.switClientSecret, ...(config.switApiToken ? { SWIT_API_TOKEN: config.switApiToken } : {}), ...(config.switApiBaseUrl ? { SWIT_API_BASE_URL: config.switApiBaseUrl } : {}), ...(config.oauthPort ? { OAUTH_PORT: String(config.oauthPort) } : {}) } })
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required: ['switClientId', 'switClientSecret']
+    properties:
+      switClientId:
+        type: string
+        description: Swit OAuth client ID
+      switClientSecret:
+        type: string
+        description: Swit OAuth client secret
+      switApiToken:
+        type: string
+        description: Swit API bearer token (fallback)
+      switApiBaseUrl:
+        type: string
+        default: https://openapi.swit.io/v1
+        description: Swit API base URL
+      oauthPort:
+        type: number
+        default: 3000
+        description: Port for OAuth callback server
+
+environment:
+  - name: SWIT_CLIENT_ID
+    description: |
+      [KOR]
+      Swit 개발자 센터에서 발급받은 앱 클라이언트 ID
+
+      [ENG]
+      App Client ID issued from Swit Developers Center
+    required: true
+
+  - name: SWIT_CLIENT_SECRET
+    description: |
+      [KOR]
+      Swit 개발자 센터에서 발급받은 앱 클라이언트 시크릿
+
+      [ENG]
+      App Client Secret issued from Swit Developers Center
+    required: true
