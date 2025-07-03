@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import pkg from '../package.json' with { type: 'json' };
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
@@ -7,8 +8,10 @@ import { SwitClient } from './swit-client.js';
 import { OAuthWebServer } from './oauth-web-server.js';
 import { OAuthSettings } from './oauth-settings.js';
 import { TokenCache } from './token-cache.js';
-import { tools } from './tools.js';
-import { createHandlers } from './handlers.js';
+import { oauthTools } from './tools/oauth.tools.js';
+import { coreTools } from './tools/core.tools.js';
+import { oauthHandlers } from './handlers/oauth.handlers.js';
+import { coreHandlers } from './handlers/core.handlers.js';
 
 // 전역 변수
 let oauthWebServer: OAuthWebServer | null = null;
@@ -29,14 +32,10 @@ async function initializeOAuth() {
 
     // 웹서버 시작
     await oauthWebServer.startServer();
+    console.error(`OAuth web server started successfully on port ${settings.port}`);
 
     // SwitClient 초기화
     switClient = new SwitClient(oauthWebServer.getOAuthManager());
-
-    console.error(`OAuth web server started successfully on port ${settings.port}`);
-    if (!oauthWebServer.isAuthenticated()) {
-      console.error(`OAuth authentication required at http://localhost:${settings.port}`);
-    }
   } catch (error) {
     console.error(
       'OAuth initialization failed:',
@@ -50,7 +49,7 @@ async function initializeOAuth() {
 const server = new Server(
   {
     name: 'swit-mcp',
-    version: '1.0.0',
+    version: pkg.version,
   },
   {
     capabilities: {
@@ -60,45 +59,33 @@ const server = new Server(
 );
 
 server.setRequestHandler(ListToolsRequestSchema, async () => {
-  return { tools };
+  return { tools: [...oauthTools, ...coreTools] };
 });
 
-// 핸들러 생성
-const toolHandlers = createHandlers(switClient, oauthWebServer);
+// 핸들러 변수 선언
+let toolHandlers: Record<string, (args?: any) => Promise<any>> = {};
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
-
   try {
     const handler = toolHandlers[name];
-    if (!handler) {
-      throw new Error(`Unknown tool: ${name}`);
-    }
-
-    return await handler(args);
+    if (!handler) throw new Error(`Unknown tool: ${name}`);
+    const result = await handler(args);
+    return {
+      content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+    };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-
-    const apiResponse = (error as any)?.response;
-
-    console.error('MCP 도구 실행 중 오류 발생:', name, errorMessage, apiResponse, args);
-
-    const errorResponse = {
-      success: false,
-      error: {
-        code: 'TOOL_EXECUTION_ERROR',
-        message: errorMessage,
-        tool: name,
-        ...(apiResponse && { apiResponse }), // API 응답이 있으면 포함
-      },
-      timestamp: new Date().toISOString(),
-    };
-
+    console.error('MCP 도구 실행 중 오류 발생:', name, errorMessage);
     return {
       content: [
         {
           type: 'text',
-          text: JSON.stringify(errorResponse, null, 2),
+          text: JSON.stringify(
+            { code: 'TOOL_EXECUTION_ERROR', message: errorMessage, tool: name },
+            null,
+            2
+          ),
         },
       ],
       isError: true,
@@ -115,8 +102,11 @@ async function main() {
     await initializeOAuth();
     console.error('OAuth initialization completed');
 
-    // 핸들러 업데이트 (OAuth 및 클라이언트 초기화 후)
-    Object.assign(toolHandlers, createHandlers(switClient, oauthWebServer));
+    // 핸들러 생성 (OAuth 및 클라이언트 초기화 후)
+    if (!switClient) {
+      throw new Error('SwitClient initialization failed');
+    }
+    toolHandlers = { ...oauthHandlers(oauthWebServer), ...coreHandlers(switClient) };
 
     // MCP 서버 시작
     console.error('Starting MCP server transport...');

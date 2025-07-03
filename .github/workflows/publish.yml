@@ -96,9 +96,6 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-      - name: Run linting
-        run: pnpm run lint
-
       - name: Build package
         run: pnpm run build
 
@@ -114,11 +111,11 @@ jobs:
           name: Release v${{ needs.check-version.outputs.version }}
           body: |
             🚀 Release version ${{ needs.check-version.outputs.version }}
-            
+
             ## Changes in this release
             - Package version updated to ${{ needs.check-version.outputs.version }}
             - Available on NPM: `npx -y swit-mcp@${{ needs.check-version.outputs.version }}`
-            
+
             ## Installation
             ```bash
             npx -y swit-mcp

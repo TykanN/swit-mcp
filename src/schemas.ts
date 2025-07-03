@@ -157,14 +157,6 @@ export const ProjectListResponseSchema = z.object({
   }),
 });
 
-// Error schema
-export const ErrorResponseSchema = z.object({
-  error: z.object({
-    code: z.string(),
-    message: z.string(),
-  }),
-});
-
 // Type exports
 export type WorkspaceListArgs = z.infer<typeof WorkspaceListArgsSchema>;
 export type Workspace = z.infer<typeof WorkspaceSchema>;
@@ -187,5 +179,3 @@ export type MessageCommentCreateResponse = z.infer<typeof MessageCommentCreateRe
 export type ProjectListArgs = z.infer<typeof ProjectListArgsSchema>;
 export type Project = z.infer<typeof ProjectSchema>;
 export type ProjectListResponse = z.infer<typeof ProjectListResponseSchema>;
-
-export type ErrorResponse = z.infer<typeof ErrorResponseSchema>;

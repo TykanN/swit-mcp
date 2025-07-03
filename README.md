@@ -8,14 +8,10 @@
 ```
 
 <div align="center">
-  <strong>🟦 Swit 협업툴과 연동하는 Model Context Protocol (MCP) 서버 🟧</strong>
-  <br>
-  <em>🟩 Swit을 연결하여 업무 자동화를 실현하세요 🟩</em>
+  <strong>🟦 Swit MCP( Model Context Protocol ) Server 🟧</strong>
 </div>
 
 ## 🚀 빠른 시작
-
-NPM을 통해 즉시 사용 가능합니다:
 
 ```bash
 npx -y swit-mcp
@@ -94,10 +90,12 @@ Claude Desktop이나 다른 MCP 클라이언트의 설정 파일에 추가:
 ## 🛠️ 사용 가능한 도구
 
 ### 🔐 OAuth 관리
+
 - **`swit-oauth-status`** - OAuth 인증 상태 확인 및 토큰 정보 조회
 - **`swit-oauth-start`** - OAuth 인증 시작 (브라우저 인증 URL 반환)
 
 ### 💼 Swit API 연동
+
 - **`swit-workspace-list`** - 접근 가능한 워크스페이스 목록 조회
 - **`swit-channel-list`** - 지정된 워크스페이스의 채널 목록 조회 (필터링 지원)
 - **`swit-message-create`** - 채널에 새 메시지 전송 (텍스트/HTML 지원)

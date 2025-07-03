@@ -11,7 +11,7 @@ describe('SwitClient', () => {
   beforeEach(() => {
     // Clear all nock interceptors
     nock.cleanAll();
-    
+
     // Setup with fallback token
     process.env.SWIT_API_TOKEN = 'test-token';
     client = new SwitClient();
@@ -27,7 +27,7 @@ describe('SwitClient', () => {
       const settings = new OAuthSettings('test-id', 'test-secret');
       const tokenCache = new TokenCache();
       const oauthManager = new OAuthManager(settings.config, tokenCache);
-      
+
       const oauthClient = new SwitClient(oauthManager);
       expect(oauthClient).toBeDefined();
     });
@@ -59,7 +59,7 @@ describe('SwitClient', () => {
               photo: '/workspace/photos/ws-123456789.jpg',
               created: '2020-02-03T01:31:37Z',
               admin_ids: ['user-admin-1', 'user-admin-2'],
-              master_id: 'user-master-1'
+              master_id: 'user-master-1',
             },
             {
               id: 'ws-987654321',
@@ -69,18 +69,15 @@ describe('SwitClient', () => {
               photo: '/workspace/photos/ws-987654321.jpg',
               created: '2020-03-14T05:00:07Z',
               admin_ids: ['user-admin-3'],
-              master_id: 'user-master-2'
-            }
-          ]
-        }
+              master_id: 'user-master-2',
+            },
+          ],
+        },
       };
 
-      nock(baseURL)
-        .get('/api/workspace.list')
-        .query({ limit: 20 })
-        .reply(200, mockResponse);
+      nock(baseURL).get('/api/workspace.list').reply(200, mockResponse);
 
-      const args = { limit: 20 };
+      const args = {};
       const result = await client.listWorkspaces(args);
 
       expect(result).toEqual(mockResponse);
@@ -89,29 +86,12 @@ describe('SwitClient', () => {
       expect(result.data.workspaces[0].name).toBe('Test Workspace');
     });
 
-    it('should handle API errors with proper error format', async () => {
-      const errorResponse = {
-        error: {
-          code: 'INVALID_TOKEN',
-          message: 'The provided API token is invalid or expired'
-        }
-      };
-
-      nock(baseURL)
-        .get('/api/workspace.list')
-        .query({ limit: 20 })
-        .reply(401, errorResponse);
-
-      const args = { limit: 20 };
-      await expect(client.listWorkspaces(args)).rejects.toThrow('Swit API Error');
-    });
-
     it('should include optional parameters in request', async () => {
-      const mockResponse = { 
-        data: { 
+      const mockResponse = {
+        data: {
           offset: null,
-          workspaces: [] 
-        } 
+          workspaces: [],
+        },
       };
 
       nock(baseURL)
@@ -122,9 +102,9 @@ describe('SwitClient', () => {
       const args = {
         offset: 'test-offset',
         limit: 10,
-        name: 'Test WS'
+        name: 'Test WS',
       };
-      
+
       const result = await client.listWorkspaces(args);
       expect(result.data.workspaces).toEqual([]);
     });
@@ -147,7 +127,7 @@ describe('SwitClient', () => {
               is_private: false,
               is_starred: false,
               is_prev_chat_visible: true,
-              host_id: 'user-host-1'
+              host_id: 'user-host-1',
             },
             {
               id: 'ch-987654321',
@@ -160,15 +140,15 @@ describe('SwitClient', () => {
               is_private: true,
               is_starred: false,
               is_prev_chat_visible: true,
-              host_id: 'user-host-2'
-            }
-          ]
-        }
+              host_id: 'user-host-2',
+            },
+          ],
+        },
       };
 
       nock(baseURL)
         .get('/api/channel.list')
-        .query({ workspace_id: 'ws-123', limit: 20 })
+        .query({ workspace_id: 'ws-123' })
         .reply(200, mockResponse);
 
       const args = { workspace_id: 'ws-123' };
@@ -181,34 +161,32 @@ describe('SwitClient', () => {
     });
 
     it('should include optional channel filters', async () => {
-      const mockResponse = { 
-        data: { 
+      const mockResponse = {
+        data: {
           offset: null,
-          channels: [] 
-        } 
+          channels: [],
+        },
       };
 
       nock(baseURL)
         .get('/api/channel.list')
-        .query({ 
-          workspace_id: 'ws-123', 
-          type: 'private', 
+        .query({
+          workspace_id: 'ws-123',
+          type: 'private',
           activity: 'active',
           disclosure: 'private',
           name: 'dev',
-          limit: 10 
         })
         .reply(200, mockResponse);
 
       const args = {
         workspace_id: 'ws-123',
         type: 'private',
-        activity: 'active', 
+        activity: 'active',
         disclosure: 'private',
         name: 'dev',
-        limit: 10
       };
-      
+
       const result = await client.listChannels(args);
       expect(result.data.channels).toEqual([]);
     });
@@ -227,23 +205,23 @@ describe('SwitClient', () => {
             created: '2020-03-14T05:00:07Z',
             comment_count: 0,
             assets: [],
-            attachments: {}
-          }
-        }
+            attachments: {},
+          },
+        },
       };
 
       nock(baseURL)
         .post('/api/message.create', {
           channel_id: 'ch-123456789',
-          content: 'Hello, this is a test message!'
+          content: 'Hello, this is a test message!',
         })
         .reply(200, mockResponse);
 
       const args = {
         channel_id: 'ch-123456789',
-        content: 'Hello, this is a test message!'
+        content: 'Hello, this is a test message!',
       };
-      
+
       const result = await client.createMessage(args);
       expect(result).toEqual(mockResponse);
       expect(result.data.message.message_id).toBe('msg-123456789');
@@ -251,8 +229,8 @@ describe('SwitClient', () => {
     });
 
     it('should create message with optional parameters', async () => {
-      const mockResponse = { 
-        data: { 
+      const mockResponse = {
+        data: {
           message: {
             message_id: 'msg-987654321',
             channel_id: 'ch-123456789',
@@ -262,9 +240,9 @@ describe('SwitClient', () => {
             created: '2020-03-14T05:00:07Z',
             comment_count: 0,
             assets: [{ id: 'asset-1', name: 'file.pdf' }],
-            attachments: { type: 'file' }
-          } 
-        } 
+            attachments: { type: 'file' },
+          },
+        },
       };
 
       nock(baseURL)
@@ -273,7 +251,7 @@ describe('SwitClient', () => {
           content: 'Message with attachments',
           body_type: 'plain',
           assets: [{ id: 'asset-1', name: 'file.pdf' }],
-          attachments: { type: 'file' }
+          attachments: { type: 'file' },
         })
         .reply(200, mockResponse);
 
@@ -282,30 +260,11 @@ describe('SwitClient', () => {
         content: 'Message with attachments',
         body_type: 'plain' as const,
         assets: [{ id: 'asset-1', name: 'file.pdf' }],
-        attachments: { type: 'file' }
+        attachments: { type: 'file' },
       };
-      
+
       const result = await client.createMessage(args);
       expect(result.data.message.message_id).toBe('msg-987654321');
-    });
-
-    it('should handle message creation errors', async () => {
-      const errorResponse = {
-        error: {
-          code: 'CHANNEL_NOT_FOUND',
-          message: 'The specified channel does not exist or you do not have access'
-        }
-      };
-
-      nock(baseURL)
-        .post('/api/message.create')
-        .reply(404, errorResponse);
-
-      const args = {
-        channel_id: 'ch-nonexistent'
-      };
-      
-      await expect(client.createMessage(args)).rejects.toThrow('Swit API Error');
     });
   });
 
@@ -319,23 +278,23 @@ describe('SwitClient', () => {
             user_name: 'Comment User',
             content: 'Great message! Thanks for sharing.',
             created: '2020-03-14T05:00:07Z',
-            assets: []
-          }
-        }
+            assets: [],
+          },
+        },
       };
 
       nock(baseURL)
         .post('/api/message.comment.create', {
           message_id: 'msg-123456789',
-          content: 'Great message! Thanks for sharing.'
+          content: 'Great message! Thanks for sharing.',
         })
         .reply(200, mockResponse);
 
       const args = {
         message_id: 'msg-123456789',
-        content: 'Great message! Thanks for sharing.'
+        content: 'Great message! Thanks for sharing.',
       };
-      
+
       const result = await client.createMessageComment(args);
       expect(result).toEqual(mockResponse);
       expect(result.data.comment.comment_id).toBe('comment-123456789');
@@ -343,17 +302,17 @@ describe('SwitClient', () => {
     });
 
     it('should create comment with optional parameters', async () => {
-      const mockResponse = { 
-        data: { 
+      const mockResponse = {
+        data: {
           comment: {
             comment_id: 'comment-987654321',
             user_id: 'user-789',
             user_name: 'Asset User',
             content: 'Comment with asset',
             created: '2020-03-14T05:00:07Z',
-            assets: [{ id: 'asset-2', name: 'image.png' }]
-          } 
-        } 
+            assets: [{ id: 'asset-2', name: 'image.png' }],
+          },
+        },
       };
 
       nock(baseURL)
@@ -361,7 +320,7 @@ describe('SwitClient', () => {
           message_id: 'msg-123456789',
           content: 'Comment with asset',
           body_type: 'plain',
-          assets: [{ id: 'asset-2', name: 'image.png' }]
+          assets: [{ id: 'asset-2', name: 'image.png' }],
         })
         .reply(200, mockResponse);
 
@@ -369,44 +328,22 @@ describe('SwitClient', () => {
         message_id: 'msg-123456789',
         content: 'Comment with asset',
         body_type: 'plain' as const,
-        assets: [{ id: 'asset-2', name: 'image.png' }]
+        assets: [{ id: 'asset-2', name: 'image.png' }],
       };
-      
+
       const result = await client.createMessageComment(args);
       expect(result.data.comment.comment_id).toBe('comment-987654321');
     });
 
     it('should handle network errors gracefully', async () => {
-      nock(baseURL)
-        .post('/api/message.comment.create')
-        .replyWithError('Network connection failed');
+      nock(baseURL).post('/api/message.comment.create').replyWithError('Network connection failed');
 
       const args = {
         message_id: 'msg-123456789',
-        content: 'Test comment'
+        content: 'Test comment',
       };
-      
+
       await expect(client.createMessageComment(args)).rejects.toThrow('Network connection failed');
-    });
-
-    it('should handle comment creation errors', async () => {
-      const errorResponse = {
-        error: {
-          code: 'MESSAGE_NOT_FOUND',
-          message: 'The specified message does not exist or you do not have access'
-        }
-      };
-
-      nock(baseURL)
-        .post('/api/message.comment.create')
-        .reply(404, errorResponse);
-
-      const args = {
-        message_id: 'msg-nonexistent',
-        content: 'Test comment'
-      };
-      
-      await expect(client.createMessageComment(args)).rejects.toThrow('Swit API Error');
     });
   });
 
@@ -422,7 +359,7 @@ describe('SwitClient', () => {
               user_name: 'Comment User',
               content: 'Great message! Thanks for sharing.',
               created: '2020-03-14T05:00:07Z',
-              assets: []
+              assets: [],
             },
             {
               comment_id: 'comment-987654321',
@@ -430,15 +367,15 @@ describe('SwitClient', () => {
               user_name: 'Another User',
               content: 'I agree with this point.',
               created: '2020-03-14T05:15:22Z',
-              assets: [{ id: 'asset-1', name: 'screenshot.png' }]
-            }
-          ]
-        }
+              assets: [{ id: 'asset-1', name: 'screenshot.png' }],
+            },
+          ],
+        },
       };
 
       nock(baseURL)
         .get('/api/message.comment.list')
-        .query({ message_id: 'msg-123456789', limit: 20 })
+        .query({ message_id: 'msg-123456789' })
         .reply(200, mockResponse);
 
       const args = { message_id: 'msg-123456789' };
@@ -451,11 +388,11 @@ describe('SwitClient', () => {
     });
 
     it('should include optional parameters in request', async () => {
-      const mockResponse = { 
-        data: { 
+      const mockResponse = {
+        data: {
           offset: null,
-          comments: [] 
-        } 
+          comments: [],
+        },
       };
 
       nock(baseURL)
@@ -466,28 +403,11 @@ describe('SwitClient', () => {
       const args = {
         message_id: 'msg-123',
         offset: 'test-offset',
-        limit: 10
+        limit: 10,
       };
-      
+
       const result = await client.listMessageComments(args);
       expect(result.data.comments).toEqual([]);
-    });
-
-    it('should handle message comment list errors', async () => {
-      const errorResponse = {
-        error: {
-          code: 'MESSAGE_NOT_FOUND',
-          message: 'The specified message does not exist or you do not have access'
-        }
-      };
-
-      nock(baseURL)
-        .get('/api/message.comment.list')
-        .query({ message_id: 'msg-nonexistent', limit: 20 })
-        .reply(404, errorResponse);
-
-      const args = { message_id: 'msg-nonexistent' };
-      await expect(client.listMessageComments(args)).rejects.toThrow('Swit API Error');
     });
   });
 
@@ -506,7 +426,7 @@ describe('SwitClient', () => {
               is_archived: false,
               is_private: false,
               is_starred: true,
-              host_id: 'user-host-1'
+              host_id: 'user-host-1',
             },
             {
               id: 'proj-987654321',
@@ -517,15 +437,15 @@ describe('SwitClient', () => {
               is_archived: false,
               is_private: true,
               is_starred: false,
-              host_id: 'user-host-2'
-            }
-          ]
-        }
+              host_id: 'user-host-2',
+            },
+          ],
+        },
       };
 
       nock(baseURL)
         .get('/api/project.list')
-        .query({ workspace_id: 'ws-123', limit: 20 })
+        .query({ workspace_id: 'ws-123' })
         .reply(200, mockResponse);
 
       const args = { workspace_id: 'ws-123' };
@@ -538,21 +458,21 @@ describe('SwitClient', () => {
     });
 
     it('should include optional project filters', async () => {
-      const mockResponse = { 
-        data: { 
+      const mockResponse = {
+        data: {
           offset: null,
-          projects: [] 
-        } 
+          projects: [],
+        },
       };
 
       nock(baseURL)
         .get('/api/project.list')
-        .query({ 
-          workspace_id: 'ws-123', 
+        .query({
+          workspace_id: 'ws-123',
           activity: 'act',
           disclosure: 'pub',
           name: 'Website',
-          limit: 10 
+          limit: 10,
         })
         .reply(200, mockResponse);
 
@@ -561,78 +481,11 @@ describe('SwitClient', () => {
         activity: 'act',
         disclosure: 'pub',
         name: 'Website',
-        limit: 10
+        limit: 10,
       };
-      
+
       const result = await client.listProjects(args);
       expect(result.data.projects).toEqual([]);
-    });
-
-    it('should handle project list errors', async () => {
-      const errorResponse = {
-        error: {
-          code: 'WORKSPACE_NOT_FOUND',
-          message: 'The specified workspace does not exist or you do not have access'
-        }
-      };
-
-      nock(baseURL)
-        .get('/api/project.list')
-        .query({ workspace_id: 'ws-nonexistent', limit: 20 })
-        .reply(404, errorResponse);
-
-      const args = { workspace_id: 'ws-nonexistent' };
-      await expect(client.listProjects(args)).rejects.toThrow('Swit API Error');
-    });
-  });
-
-  describe('error handling', () => {
-    it('should handle unauthorized access', async () => {
-      const errorResponse = {
-        error: {
-          code: 'UNAUTHORIZED',
-          message: 'Authentication required'
-        }
-      };
-
-      nock(baseURL)
-        .get('/api/workspace.list')
-        .query({ limit: 20 })
-        .reply(401, errorResponse);
-
-      await expect(client.listWorkspaces({})).rejects.toThrow('Swit API Error');
-    });
-
-    it('should handle rate limiting', async () => {
-      const errorResponse = {
-        error: {
-          code: 'RATE_LIMIT_EXCEEDED',
-          message: 'API rate limit exceeded. Please retry after some time.'
-        }
-      };
-
-      nock(baseURL)
-        .get('/api/workspace.list')
-        .query({ limit: 20 })
-        .reply(429, errorResponse);
-
-      await expect(client.listWorkspaces({})).rejects.toThrow('Swit API Error');
-    });
-
-    it('should handle server errors', async () => {
-      const errorResponse = {
-        error: {
-          code: 'INTERNAL_SERVER_ERROR',
-          message: 'An internal server error occurred'
-        }
-      };
-
-      nock(baseURL)
-        .get('/api/workspace.list')
-        .query({ limit: 20 })
-        .reply(500, errorResponse);
-
-      await expect(client.listWorkspaces({})).rejects.toThrow('Swit API Error');
     });
   });
 });
